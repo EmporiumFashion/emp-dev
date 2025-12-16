@@ -125,36 +125,7 @@
 }
 </style>
 
-<script>
-(function () {
-  if (window.matchMedia('(hover: none)').matches) return;
 
-  const cursor = document.querySelector('.cursor-effect');
-  if (!cursor) return;
-
-  let x = window.innerWidth / 2;
-  let y = window.innerHeight / 2;
-  let cx = x;
-  let cy = y;
-
-  document.addEventListener('mousemove', e => {
-    x = e.clientX;
-    y = e.clientY;
-  });
-
-  function animate() {
-    cx += (x - cx) * 0.12;
-    cy += (y - cy) * 0.12;
-
-    cursor.style.transform =
-      `translate(${cx}px, ${cy}px) translate(-50%, -50%) scale(1.05)`;
-
-    requestAnimationFrame(animate);
-  }
-
-  animate();
-})();
-</script>
 
 {% schema %}
 {
