@@ -6,19 +6,16 @@
   <div class="about-inner">
 
     <!-- IMAGE SIDE -->
-    <div class="about-image">
-      {% if section.settings.image %}
-        <div class="image-frame">
-          <img
-            src="{{ section.settings.image | image_url: width: 900 }}"
-            alt="About us image"
-            width="900"
-            height="1100"
-            loading="lazy"
-          >
-        </div>
-      {% endif %}
-    </div>
+   
+    <div class="about-image-wrap">
+  <img
+    src="{{ section.settings.about_image | image_url: width: 900 }}"
+    alt=""
+    class="about-image"
+    loading="lazy"
+  >
+</div>
+
 
     <!-- DIVIDER -->
     <div class="about-divider"></div>
