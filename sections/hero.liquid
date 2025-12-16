@@ -13,6 +13,17 @@
   </div>
 
   <div class="cursor-invert" aria-hidden="true"></div>
+
+  <div class="hero-marquee">
+  <div class="marquee-track">
+    <span>Lock in.</span>
+    <span>Lock in.</span>
+    <span>Lock in.</span>
+    <span>Lock in.</span>
+  </div>
+
+</div>
+
 </section>
 
 <style>
@@ -81,6 +92,55 @@
     display: none;
   }
 }
+
+
+
+.hero-marquee {
+  position: absolute;
+  bottom: 40px;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.marquee-track {
+  display: flex;
+  gap: 80px;
+  width: max-content;
+  animation: marqueeScroll 18s linear infinite;
+}
+
+.marquee-track span {
+  font-family: 'UnifrakturMaguntia', serif;
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  letter-spacing: 4px;
+  color: #f5f5f2;
+  opacity: 0.65;
+  text-transform: lowercase;
+  white-space: nowrap;
+}
+
+@keyframes marqueeScroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* mobile: slower + smaller */
+@media (max-width: 768px) {
+  .marquee-track {
+    animation-duration: 30s;
+  }
+}
+
+
+
+
 </style>
 
 <script>
