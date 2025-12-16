@@ -16,6 +16,18 @@
     <!-- Divider -->
     <div class="about-divider"></div>
 
+
+<div class="about-diagonal-marquee">
+  <div class="about-diagonal-track">
+    <span>Lock in.</span>
+    <span>Lock in.</span>
+    <span>Lock in.</span>
+    <span>Lock in.</span>
+    <span>Lock in.</span>
+  </div>
+</div>
+
+
     <!-- Text side -->
     <div class="about-text">
       <h2>About us</h2>
@@ -31,6 +43,49 @@
 </section>
 
 <style>
+
+/* diagonal marquee container */
+.about-diagonal-marquee {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* diagonal scrolling text */
+.about-diagonal-track {
+  position: absolute;
+  top: 50%;
+  left: -20%;
+  display: flex;
+  gap: 80px;
+  transform: rotate(-12deg) translateY(-50%);
+  white-space: nowrap;
+  animation: diagonalScroll 22s linear infinite;
+}
+
+/* text style — MATCHES HERO MARQUEE */
+.about-diagonal-track span {
+  font-family: Inter, Helvetica, Arial, sans-serif;
+  font-size: clamp(3rem, 6vw, 6rem);
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.06);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+}
+
+/* animation */
+@keyframes diagonalScroll {
+  from {
+    transform: rotate(-12deg) translateX(0) translateY(-50%);
+  }
+  to {
+    transform: rotate(-12deg) translateX(-50%) translateY(-50%);
+  }
+}
+
+
 .about-us {
   background: #000;
   color: #fff;
