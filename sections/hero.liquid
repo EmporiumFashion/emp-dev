@@ -201,7 +201,7 @@
 </style>
 
 <script>
-
+<script>
 (function () {
   if (window.matchMedia('(hover: none)').matches || window.innerWidth < 768) return;
 
@@ -213,24 +213,25 @@
   let cx = x;
   let cy = y;
 
-  document.addEventListener('mousemove', e => {
+  document.addEventListener('mousemove', (e) => {
     x = e.clientX;
     y = e.clientY;
   });
 
   function animate() {
-    // smooth follow
     cx += (x - cx) * 0.15;
     cy += (y - cy) * 0.15;
 
     cursor.style.transform =
-      `translate(${cx}px, ${cy}px) translate(-50%, -50%) scale(1.05)`;
+      `translate(${cx}px, ${cy}px) translate(-50%, -50%)`;
 
     requestAnimationFrame(animate);
   }
 
   animate();
 })();
+</script>
+
 </script>
 
 <script>
