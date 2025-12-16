@@ -8,10 +8,14 @@
     <!-- IMAGE SIDE -->
    
 <img
-  src="{{ section.settings.image | image_url }}"
+  src="{{ section.settings.image | image_url: width: 800 }}"
   alt=""
   class="about-image"
->
+  width="800"
+  height="1000"
+  loading="lazy"
+/>
+
 
 
 
