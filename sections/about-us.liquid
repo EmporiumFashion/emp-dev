@@ -1,106 +1,206 @@
-<header class="site-header">
-  <div class="header-inner">
-    <div class="header-left">
-      <a href="/" class="header-menu">Menu</a>
+<section class="about-us">
+  <div class="about-grid">
+
+    <!-- Image side -->
+    <div class="about-image-wrap">
+      {% if section.settings.image != blank %}
+        <img
+          src="{{ section.settings.image | image_url: width: 900 }}"
+          alt="About us"
+          width="900"
+          height="1200"
+        >
+      {% endif %}
     </div>
 
-    <div class="header-center">
-      <a href="/" class="header-logo">E</a>
-      <span class="header-tagline">“Lock In.”</span>
-    </div>
+    <!-- Divider -->
+    <div class="about-divider"></div>
 
-    <div class="header-right">
-      <a href="/cart" class="header-cart">
-        Cart ({{ cart.item_count }})
-      </a>
-    </div>
+
+<div class="about-diagonal-marquee">
+  <div class="about-diagonal-track">
+    <span>Lock in.</span>
+    <span>Lock in.</span>
+    <span>Lock in.</span>
+    <span>Lock in.</span>
+    <span>Lock in.</span>
   </div>
-</header>
+</div>
+
+
+    <!-- Text side -->
+    <div class="about-text">
+      <h2>About us</h2>
+      <p>
+        We started with a belief in <strong>discipline</strong>, <strong>focus</strong>,
+        and the power of <strong>showing up daily</strong>. What began as an idea
+        turned into a movement built on consistency, intent, and obsession with
+        craft. This is more than clothing — it’s a mindset.
+      </p>
+    </div>
+
+  </div>
+</section>
 
 <style>
-.site-header {
-  width: 100%;
-  background: #000;
-  color: #f5f5f2;
-  border-bottom: 1px solid rgba(255,255,255,0.15);
+
+/* diagonal marquee container */
+.about-diagonal-marquee {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
 }
 
-.header-inner {
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
-  align-items: center;
-  padding: 16px 24px;
+/* diagonal scrolling text */
+.about-diagonal-track {
+  position: absolute;
+  top: 50%;
+  left: -20%;
+  display: flex;
+  gap: 80px;
+  transform: rotate(-12deg) translateY(-50%);
+  white-space: nowrap;
+  animation: diagonalScroll 22s linear infinite;
 }
 
-.header-left,
-.header-right {
+/* text style — MATCHES HERO MARQUEE */
+.about-diagonal-track span {
   font-family: Inter, Helvetica, Arial, sans-serif;
-  font-size: 14px;
+  font-size: clamp(3rem, 6vw, 6rem);
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.06);
   text-transform: uppercase;
-  letter-spacing: 2px;
+  letter-spacing: 0.15em;
 }
 
-.header-left {
-  text-align: left;
-}
-
-.header-right {
-  text-align: right;
-}
-
-.header-center {
-  text-align: center;
-  line-height: 1;
-}
-
-.header-logo {
-  display: block;
-  font-family: 'UnifrakturMaguntia', serif;
-  font-size: 32px;
-  letter-spacing: 4px;
-  color: #f5f5f2;
-  text-decoration: none;
-}
-
-.header-tagline {
-  display: block;
-  margin-top: 4px;
-  font-family: Inter, Helvetica, Arial, sans-serif;
-  font-size: 11px;
-  letter-spacing: 2px;
-  opacity: 0.75;
-}
-
-.header-menu,
-.header-cart {
-  color: #f5f5f2;
-  text-decoration: none;
-}
-
-.header-menu:hover,
-.header-cart:hover {
-  opacity: 0.7;
-}
-
-/* Mobile */
-@media (max-width: 768px) {
-  .header-inner {
-    grid-template-columns: auto 1fr auto;
+/* animation */
+@keyframes diagonalScroll {
+  from {
+    transform: rotate(-12deg) translateX(0) translateY(-50%);
   }
+  to {
+    transform: rotate(-12deg) translateX(-50%) translateY(-50%);
+  }
+}
 
-  .header-tagline {
-    font-size: 10px;
+
+.about-us {
+  background: #000;
+  color: #fff;
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  padding: 0;
+}
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1px 1fr;
+  min-height: 80vh;
+}
+
+/* Divider */
+.about-divider {
+  background: rgba(255,255,255,0.15);
+  width: 1px;
+}
+
+/* Image side */
+.about-image-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.about-image-wrap img {
+  max-width: 70%;
+  border: 10px solid #fff;
+  transform: rotate(3.5deg);
+  object-fit: cover;
+}
+
+/* Text side */
+.about-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 80px;
+  font-family: Inter, Helvetica, Arial, sans-serif;
+}
+
+.about-text h2 {
+  font-size: 3rem;
+  margin-bottom: 24px;
+  font-weight: 500;
+}
+
+.about-text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;       /* horizontal center */
+  text-align: center;
+  padding: 60px;
+}
+.about-text p {
+  max-width: 420px;
+  line-height: 1.6;
+  opacity: 0.9;
+}
+
+.about-text strong {
+  font-weight: 600;
+}
+
+@media (max-width: 768px) {
+  .about-inner {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .about-image-wrap {
+    display: flex;
+    justify-content: center;
+  }
+}
+@media (max-width: 768px) {
+  .about-text {
+    text-align: center;
+    padding: 32px 20px;
+  }
+}
+@media (max-width: 768px) {
+  .about {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .diagonal-marquee {
+    transform: none;
+    position: relative;
+    margin-top: 24px;
   }
 }
 </style>
 
 {% schema %}
 {
-  "name": "Header",
-  "settings": [],
+  "name": "About us",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "About image"
+    }
+  ],
   "presets": [
     {
-      "name": "Header"
+      "name": "About us"
     }
   ]
 }
