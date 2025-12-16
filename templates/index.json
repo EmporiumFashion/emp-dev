@@ -11,10 +11,23 @@
   "sections": {
     "main": {
       "type": "hello-world",
-      "settings": {}
+      "settings": {
+        "heading": "Welcome",
+        "tagline": "Click to enter the experience",
+        "button_label": "Enter"
+      }
+    },
+    "hero_EzUykP": {
+      "type": "hero",
+      "name": "Hero",
+      "settings": {
+        "heading": "emporium",
+        "subheading": "luxury meets streetwear"
+      }
     }
   },
   "order": [
-    "main"
+    "main",
+    "hero_EzUykP"
   ]
 }
