@@ -162,8 +162,7 @@
   }
 }
 
-* CURSOR EFFECT */
-.cursor-effect {
+.cursor-invert {
   position: fixed;
   top: 0;
   left: 0;
@@ -173,25 +172,42 @@
   pointer-events: none;
   z-index: 9999;
 
-  background: rgba(255,255,255,0.95);
+  background: rgba(255, 255, 255, 0.9);
   mix-blend-mode: difference;
 
-  backdrop-filter: contrast(1.4) saturate(1.2) blur(1px);
-  -webkit-backdrop-filter: contrast(1.4) saturate(1.2) blur(1px);
+  backdrop-filter: invert(1) contrast(1.2) saturate(1.1) blur(1px);
+  -webkit-backdrop-filter: invert(1) contrast(1.2) saturate(1.1) blur(1px);
 
   transform: translate(-50%, -50%);
+  transition: width 0.2s ease, height 0.2s ease;
 }
 
-/* MOBILE */
+/* Slight pulse / organic feel */
+.cursor-invert::after {
+  content: '';
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(255,255,255,0.35),
+    transparent 70%
+  );
+  animation: cursorWobble 3s ease-in-out infinite;
+}
+
+@keyframes cursorWobble {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.08); }
+}
+
+/* Disable on mobile */
 @media (hover: none), (max-width: 768px) {
-  .cursor-effect {
+  .cursor-invert {
     display: none;
   }
-
-  .header-inner {
-    padding: 0 16px;
-  }
 }
+
 
 
 
