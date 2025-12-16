@@ -93,36 +93,7 @@
   line-height: 1;
 }
 
-/* CURSOR EFFECT */
-.cursor-effect {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 140px;
-  height: 140px;
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 9999;
-
-  background: rgba(255,255,255,0.95);
-  mix-blend-mode: difference;
-
-  backdrop-filter: contrast(1.4) saturate(1.2) blur(1px);
-  -webkit-backdrop-filter: contrast(1.4) saturate(1.2) blur(1px);
-
-  transform: translate(-50%, -50%);
-}
-
-/* MOBILE */
-@media (hover: none), (max-width: 768px) {
-  .cursor-effect {
-    display: none;
-  }
-
-  .header-inner {
-    padding: 0 16px;
-  }
-}
+/
 </style>
 
 
