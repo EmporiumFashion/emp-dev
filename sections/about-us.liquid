@@ -2,35 +2,31 @@
   About Us — Luxury / Streetwear
 {% endcomment %}
 
-<section class="about-us">
+<section class="about">
   <div class="about-inner">
 
     <!-- IMAGE SIDE -->
     <div class="about-image">
-      {% if section.settings.image != blank %}
-        <div class="image-frame">
+      <div class="image-frame">
+        {% if section.settings.image %}
           <img
             src="{{ section.settings.image | image_url: width: 900 }}"
             alt="About us image"
-            loading="lazy"
             width="900"
             height="1200"
+            loading="lazy"
           >
-        </div>
+        {% endif %}
 
-        <!-- DIAGONAL MARQUEE (CLIPPED TO IMAGE SIDE) -->
-        <div class="diag-marquee">
-          <div class="diag-track">
+        <!-- diagonal marquee (IMAGE SIDE ONLY) -->
+        <div class="diagonal-marquee">
+          <div class="marquee-track">
             {% for i in (1..30) %}
-              <span>LOCK IN.</span>
-               <span>LOCK IN.</span>
-                <span>LOCK IN.</span>
-                 <span>LOCK IN.</span>
-                  <span>LOCK IN.</span>
+              <span>LOCK&nbsp;IN.</span>
             {% endfor %}
           </div>
         </div>
-      {% endif %}
+      </div>
     </div>
 
     <!-- DIVIDER -->
@@ -40,11 +36,9 @@
     <div class="about-text">
       <h2>About us</h2>
       <p>
-        We started with nothing but an idea and obsession.
-        Built late nights, <strong>raw ambition</strong>, and an
-        unfiltered love for detail. Emporium is about
-        <strong>locking in</strong>, ignoring noise, and creating
-        something that lasts.
+        We started with a single idea — <strong>focus</strong>, <strong>discipline</strong>,
+        and <strong>intent</strong>. What began as late nights and sketches became a
+        statement of identity. This is not fashion. This is commitment.
       </p>
     </div>
 
@@ -52,9 +46,10 @@
 </section>
 
 <style>
-.about-us {
+/* ===== LAYOUT ===== */
+.about {
   background: #000;
-  color: #f5f5f2;
+  color: #fff;
   width: 100vw;
   margin-left: calc(50% - 50vw);
   overflow: hidden;
@@ -66,124 +61,132 @@
   min-height: 100vh;
 }
 
-/* IMAGE SIDE */
-.about-image {
-  position: relative;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* PHOTO FRAME */
-.image-frame {
-  border: 10px solid #fff;
-  transform: rotate(3.5deg);
-  z-index: 2;
-  filter: grayscale(1);
-  position: relative;
-}
-
-.image-frame img {
-  display: block;
-  width: 380px;
-  height: auto;
-}
-
-/* noise on image */
-.image-frame::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  opacity: 0.05;
-  pointer-events: none;
-}
-
-/* DIAGONAL MARQUEE */
-.diag-marquee {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  overflow: hidden;
-}
-
-.diag-track {
-  position: absolute;
-  white-space: nowrap;
-  font-family: Inter, Helvetica, Arial, sans-serif;
-  font-size: 4rem;
-  letter-spacing: 4px;
-  text-transform: uppercase;
-  color: #fff;
-  mix-blend-mode: difference;
-  transform: rotate(-20deg);
-  animation: diagScroll 20s linear infinite;
-}
-
-.diag-track span {
-  margin-right: 80px;
-}
-
-/* marquee reveals color under it */
-.diag-marquee:hover ~ .image-frame {
-  filter: grayscale(0);
-}
-
-@keyframes diagScroll {
-  from { transform: translateX(-50%) rotate(-20deg); }
-  to   { transform: translateX(0%) rotate(-20deg); }
-}
-
-/* DIVIDER */
+/* ===== DIVIDER ===== */
 .about-divider {
   background: rgba(255,255,255,0.25);
 }
 
-/* TEXT SIDE */
+/* ===== IMAGE SIDE ===== */
+.about-image {
+  position: relative;
+  overflow: hidden;
+}
+
+.image-frame {
+  position: absolute;
+  inset: 50%;
+  transform: translate(-50%, -50%) rotate(3.5deg);
+  border: 10px solid #fff;
+  width: 65%;
+  max-width: 420px;
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+}
+
+.image-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(1);
+  transition: filter 0.3s ease;
+}
+
+/* noise overlay */
+.image-frame::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: 0.06;
+  pointer-events: none;
+}
+
+/* ===== DIAGONAL MARQUEE ===== */
+.diagonal-marquee {
+  position: absolute;
+  inset: -40%;
+  transform: rotate(-25deg);
+  pointer-events: none;
+  mix-blend-mode: difference;
+}
+
+.marquee-track {
+  display: flex;
+  gap: 60px;
+  animation: marquee 20s linear infinite;
+}
+
+.marquee-track span {
+  font-family: Inter, Helvetica, Arial, sans-serif;
+  font-size: 4rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* marquee animation */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* COLOR REVEAL WHERE MARQUEE PASSES */
+.diagonal-marquee {
+  mask-image: linear-gradient(#000 0 0);
+}
+
+.diagonal-marquee:hover ~ img,
+.image-frame:hover img {
+  filter: grayscale(0);
+}
+
+/* ===== TEXT SIDE ===== */
 .about-text {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 80px;
-  font-family: Inter, Helvetica, Arial, sans-serif;
+  align-items: center;
+  padding: 8vw;
+  text-align: center;
 }
 
 .about-text h2 {
-  font-size: 2.5rem;
+  font-family: Inter, Helvetica, Arial, sans-serif;
+  font-size: 3rem;
   margin-bottom: 24px;
 }
 
 .about-text p {
   max-width: 420px;
+  opacity: 0.8;
   line-height: 1.6;
-  opacity: 0.9;
 }
 
-.about-text strong {
-  font-weight: 600;
-}
-
-/* MOBILE */
+/* ===== MOBILE ===== */
 @media (max-width: 768px) {
   .about-inner {
     grid-template-columns: 1fr;
   }
 
-  .about-divider,
-  .diag-marquee {
+  .about-divider {
+    display: none;
+  }
+
+  .diagonal-marquee {
     display: none;
   }
 
   .image-frame {
-    transform: rotate(0);
+    position: relative;
+    inset: auto;
+    transform: rotate(2deg);
+    margin: 60px auto;
   }
 }
 </style>
 
 {% schema %}
 {
-  "name": "About Us",
+  "name": "About us",
   "settings": [
     {
       "type": "image_picker",
@@ -193,9 +196,8 @@
   ],
   "presets": [
     {
-      "name": "About Us"
+      "name": "About us"
     }
   ]
 }
 {% endschema %}
-  
