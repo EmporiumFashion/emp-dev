@@ -1,9 +1,5 @@
-{% comment %}
-  About Us – Luxury / Streetwear
-{% endcomment %}
-
 <section class="about">
-  <div class="about-inner">
+  <div class="about-grid">
 
     <!-- IMAGE SIDE -->
     <div class="about-image">
@@ -11,12 +7,11 @@
         <div class="image-frame">
           <img
             src="{{ section.settings.image | image_url: width: 900 }}"
-            alt="About us image"
-            loading="lazy"
+            alt="About image"
             width="900"
-            height="1100"
+            height="1200"
+            loading="lazy"
           >
-          <div class="image-noise"></div>
         </div>
       {% endif %}
     </div>
@@ -28,23 +23,20 @@
     <div class="about-text">
       <h2>About us</h2>
       <p>
-        We started with <strong>nothing</strong> but vision.
-        Built from obsession, driven by <strong>detail</strong>,
-        and shaped by the streets. Emporium exists to blur the
-        line between <strong>luxury</strong> and raw identity.
+        We started with a belief in <strong>discipline</strong>, obsession with
+        <strong>craft</strong>, and a refusal to follow trends. What began as an
+        idea became <strong>emporium</strong> — a space where luxury and
+        streetwear <strong>lock in</strong> together.
       </p>
-
-      <!-- DIAGONAL MARQUEE -->
-      <div class="diag-marquee">
-        <div class="diag-track">
-          <span>LOCK IN.</span>
-          <span>LOCK IN.</span>
-          <span>LOCK IN.</span>
-          <span>LOCK IN.</span>
-        </div>
-      </div>
     </div>
+  </div>
 
+  <!-- DIAGONAL MARQUEE -->
+  <div class="about-marquee">
+    <div class="about-marquee-track">
+      <span>LOCK IN.</span><span>LOCK IN.</span><span>LOCK IN.</span>
+      <span>LOCK IN.</span><span>LOCK IN.</span>
+    </div>
   </div>
 </section>
 
@@ -54,10 +46,11 @@
   color: #fff;
   width: 100vw;
   margin-left: calc(50% - 50vw);
+  position: relative;
   overflow: hidden;
 }
 
-.about-inner {
+.about-grid {
   display: grid;
   grid-template-columns: 1fr 1px 1fr;
   min-height: 90vh;
@@ -72,10 +65,9 @@
 }
 
 .image-frame {
-  position: relative;
   border: 10px solid #fff;
   transform: rotate(3deg);
-  filter: grayscale(1);
+  position: relative;
   overflow: hidden;
 }
 
@@ -83,101 +75,96 @@
   display: block;
   width: 100%;
   height: auto;
-}
-
-/* noise */
-.image-noise {
-  position: absolute;
-  inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  opacity: 0.05;
-  pointer-events: none;
+  filter: grayscale(1) contrast(1.1);
+  transition: filter 0.4s ease;
 }
 
 /* DIVIDER */
 .about-divider {
-  background: rgba(255,255,255,0.2);
+  background: rgba(255,255,255,0.25);
 }
 
 /* TEXT */
 .about-text {
-  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 6vw;
+  padding: 10vw;
   font-family: Inter, Helvetica, Arial, sans-serif;
 }
 
 .about-text h2 {
-  font-size: 3rem;
-  margin-bottom: 24px;
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  margin-bottom: 20px;
 }
 
 .about-text p {
-  max-width: 420px;
+  max-width: 480px;
   line-height: 1.6;
   opacity: 0.85;
 }
 
-/* DIAGONAL MARQUEE */
-.diag-marquee {
+/* MARQUEE */
+.about-marquee {
   position: absolute;
   inset: 0;
   pointer-events: none;
+  z-index: 5;
   overflow: hidden;
 }
 
-.diag-track {
+.about-marquee-track {
   position: absolute;
   top: 50%;
-  left: -40%;
+  left: -50%;
   display: flex;
-  gap: 60px;
+  gap: 80px;
   transform: rotate(-12deg);
-  animation: diagScroll 18s linear infinite;
+  animation: marquee 18s linear infinite;
+  font-family: Inter, Helvetica, Arial, sans-serif;
+  font-size: clamp(3rem, 8vw, 7rem);
+  letter-spacing: 0.2em;
+  white-space: nowrap;
   mix-blend-mode: difference;
 }
 
-.diag-track span {
-  font-size: 3rem;
-  font-weight: 600;
-  white-space: nowrap;
+.about-marquee span {
   color: #fff;
 }
 
-/* reveal color where marquee overlaps image */
-.about:hover .image-frame {
-  filter: grayscale(0);
+/* COLOR REVEAL WHERE MARQUEE PASSES */
+.about-marquee-track:hover ~ .about-grid .image-frame img {
+  filter: grayscale(0) contrast(1.1);
 }
 
-@keyframes diagScroll {
-  from { transform: rotate(-12deg) translateX(0); }
-  to   { transform: rotate(-12deg) translateX(-50%); }
+@keyframes marquee {
+  from { transform: translateX(0) rotate(-12deg); }
+  to { transform: translateX(50%) rotate(-12deg); }
 }
 
 /* MOBILE */
 @media (max-width: 768px) {
-  .about-inner {
+  .about-grid {
     grid-template-columns: 1fr;
   }
 
-  .about-divider,
-  .diag-marquee {
+  .about-divider {
     display: none;
   }
 
-  .about-text {
-    padding: 40px 24px;
-    align-items: center;
-    text-align: center;
+  .about-marquee {
+    display: none;
+  }
+
+  .image-frame {
+    transform: rotate(2deg);
   }
 }
 </style>
 
 {% schema %}
 {
-  "name": "About Us",
+  "name": "About us",
   "settings": [
     {
       "type": "image_picker",
@@ -187,7 +174,7 @@
   ],
   "presets": [
     {
-      "name": "About Us"
+      "name": "About us"
     }
   ]
 }
