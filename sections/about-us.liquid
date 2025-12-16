@@ -43,6 +43,22 @@
 </section>
 
 <style>
+.about-marquee {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 3;
+  mix-blend-mode: difference;
+}
+.about-marquee span {
+  color: white;
+  font-weight: 600;
+}
+.about-image-wrap {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
 
 /* diagonal marquee container */
 .about-diagonal-marquee {
