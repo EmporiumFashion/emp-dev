@@ -1,127 +1,20 @@
 <header class="site-header">
   <div class="header-inner">
-    
-    <!-- Left: Menu -->
-    <nav class="header-nav left">
-      <a href="/collections/all">Shop</a>
-      <a href="/pages/about">About</a>
-    </nav>
 
-    <!-- Center: Logo -->
-    <div class="header-logo">
-      <a href="/">
-        <span class="logo-e">E</span>
-       
-      </a>
+    <!-- Left: Logo -->
+    <div class="header-left">
+      <a href="/" class="header-logo">E</a>
     </div>
 
-    <!-- Right: Cart -->
-    <nav class="header-nav right">
-      <a href="/cart">Cart</a>
-    </nav>
+    <!-- Center: Statement -->
+    <div class="header-center">
+      <span class="header-text">“Lock In.”</span>
+    </div>
+
+    <!-- Right: Actions -->
+    <div class="header-right">
+      <a href="/cart" class="header-icon">Cart</a>
+    </div>
 
   </div>
 </header>
-
-<style>
-/* HEADER WRAPPER */
-.site-header {
-  width: 100vw;
-  margin-left: calc(50% - 50vw);
-  background: #000;
-  color: #f5f5f2;
-  border-bottom: 1px solid rgba(245,245,242,0.2);
-  position: sticky;
-  top: 0;
-  z-index: 20;
-}
-
-/* INNER GRID */
-.header-inner {
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
-  align-items: center;
-  padding: 20px 40px;
-}
-
-/* NAV */
-.header-nav {
-  display: flex;
-  gap: 28px;
-  font-family: Inter, Helvetica, Arial, sans-serif;
-  font-size: 14px;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-}
-
-.header-nav.left {
-  justify-content: flex-start;
-}
-
-.header-nav.right {
-  justify-content: flex-end;
-}
-
-.header-nav a {
-  color: #f5f5f2;
-  text-decoration: none;
-  opacity: 0.75;
-  transition: opacity 0.2s ease;
-}
-
-.header-nav a:hover {
-  opacity: 1;
-}
-
-/* LOGO */
-.header-logo a {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  text-decoration: none;
-  color: #f5f5f2;
-}
-
-/* Big E */
-.logo-e {
-  font-family: 'UnifrakturMaguntia', serif;
-  font-size: 2.6rem;
-  line-height: 1;
-}
-
-/* Lock In text */
-.logo-text {
-  font-family: Inter, Helvetica, Arial, sans-serif;
-  font-size: 13px;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  opacity: 0.8;
-}
-
-/* MOBILE */
-@media (max-width: 768px) {
-  .header-inner {
-    grid-template-columns: auto;
-    gap: 16px;
-    text-align: center;
-  }
-
-  .header-nav {
-    justify-content: center;
-  }
-
-  .header-logo {
-    order: -1;
-  }
-}
-</style>
-
-{% schema %}
-{
-  "name": "Header",
-  "settings": [],
-  "presets": [
-    { "name": "Header" }
-  ]
-}
-{% endschema %}
