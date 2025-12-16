@@ -1,34 +1,47 @@
-<section class="about-us">
-  <div class="about-grid">
+{% comment %}
+About Us — Luxury / Streetwear
+Image uploaded via admin
+Grayscale image with color reveal under marquee
+{% endcomment %}
 
-  <div class="about-image-wrap">
-  <img class="about-image" src="YOUR_IMAGE_URL" alt="">
-</div>
+<section class="about">
+  <div class="about-inner">
 
+    <!-- IMAGE SIDE -->
+    <div class="about-image">
+      {% if section.settings.image != blank %}
+        <img
+          src="{{ section.settings.image | image_url: width: 900 }}"
+          alt="About us"
+          loading="lazy"
+          width="900"
+          height="1100"
+        >
+      {% endif %}
 
-    <!-- Divider -->
+      <!-- diagonal marquee -->
+      <div class="about-marquee">
+        <div class="marquee-track">
+          <span>Lock In.</span>
+          <span>Lock In.</span>
+          <span>Lock In.</span>
+          <span>Lock In.</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- DIVIDER -->
     <div class="about-divider"></div>
 
-
-<div class="about-diagonal-marquee">
-  <div class="about-diagonal-track">
-    <span>Lock in.</span>
-    <span>Lock in.</span>
-    <span>Lock in.</span>
-    <span>Lock in.</span>
-    <span>Lock in.</span>
-  </div>
-</div>
-
-
-    <!-- Text side -->
+    <!-- TEXT SIDE -->
     <div class="about-text">
       <h2>About us</h2>
       <p>
-        We started with a belief in <strong>discipline</strong>, <strong>focus</strong>,
-        and the power of <strong>showing up daily</strong>. What began as an idea
-        turned into a movement built on consistency, intent, and obsession with
-        craft. This is more than clothing — it’s a mindset.
+        We started with a simple idea — build something
+        <strong>raw</strong>, <strong>timeless</strong>, and
+        <strong>intentional</strong>. Emporium was born from nights
+        spent obsessing over details, fabric, and culture — not trends.
+        This is for those who move with purpose.
       </p>
     </div>
 
@@ -36,178 +49,110 @@
 </section>
 
 <style>
-.about-marquee {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  z-index: 3;
-  mix-blend-mode: difference;
-}
-.about-marquee span {
-  color: white;
-  font-weight: 600;
-}
-.about-image-wrap {
-  position: relative;
-  overflow: hidden;
-  isolation: isolate;
-}
-
-/* diagonal marquee container */
-.about-diagonal-marquee {
-  position: absolute;
-  inset: 0;
-  overflow: hidden;
-  pointer-events: none;
-  z-index: 0;
-}
-
-/* diagonal scrolling text */
-.about-diagonal-track {
-  position: absolute;
-  top: 50%;
-  left: -20%;
-  display: flex;
-  gap: 80px;
-  transform: rotate(-12deg) translateY(-50%);
-  white-space: nowrap;
-  animation: diagonalScroll 22s linear infinite;
-}
-
-/* text style — MATCHES HERO MARQUEE */
-.about-diagonal-track span {
-  font-family: Inter, Helvetica, Arial, sans-serif;
-  font-size: clamp(3rem, 6vw, 6rem);
-  font-weight: 500;
-  color: rgba(255, 255, 255, 0.06);
-  text-transform: uppercase;
-  letter-spacing: 0.15em;
-}
-
-/* animation */
-@keyframes diagonalScroll {
-  from {
-    transform: rotate(-12deg) translateX(0) translateY(-50%);
-  }
-  to {
-    transform: rotate(-12deg) translateX(-50%) translateY(-50%);
-  }
-}
-
-
-.about-us {
+.about {
   background: #000;
-  color: #fff;
+  color: #f5f5f2;
   width: 100vw;
   margin-left: calc(50% - 50vw);
-  padding: 0;
+  overflow: hidden;
 }
 
-.about-grid {
+.about-inner {
   display: grid;
   grid-template-columns: 1fr 1px 1fr;
   min-height: 80vh;
 }
 
-/* Divider */
-.about-divider {
-  background: rgba(255,255,255,0.15);
-  width: 1px;
-}
-
-
+/* IMAGE */
 .about-image {
-  filter: grayscale(1) contrast(1.05);
   position: relative;
-  z-index: 1;
+  overflow: hidden;
 }
 
-
-/* Image side */
-.about-image-wrap {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.about-image-wrap img {
-  max-width: 70%;
-  border: 10px solid #fff;
-  transform: rotate(3.5deg);
+.about-image img {
+  width: 100%;
+  height: 100%;
   object-fit: cover;
+  filter: grayscale(1) contrast(1.05);
+  transition: filter 0.3s ease;
 }
 
-/* Text side */
+/* MARQUEE */
+.about-marquee {
+  position: absolute;
+  inset: 0;
+  transform: rotate(-12deg);
+  pointer-events: none;
+  mix-blend-mode: screen;
+}
+
+.marquee-track {
+  display: flex;
+  gap: 80px;
+  animation: marquee 12s linear infinite;
+  font-family: Inter, Helvetica, Arial, sans-serif;
+  font-size: clamp(2.5rem, 6vw, 5rem);
+  font-weight: 600;
+  color: #fff;
+}
+
+/* This makes the image turn COLOR under text */
+.about-marquee span {
+  mix-blend-mode: difference;
+}
+
+/* DIVIDER */
+.about-divider {
+  background: rgba(245,245,242,0.25);
+}
+
+/* TEXT */
 .about-text {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 80px;
+  align-items: center;
+  text-align: center;
+  padding: 48px;
   font-family: Inter, Helvetica, Arial, sans-serif;
 }
 
 .about-text h2 {
-  font-size: 3rem;
+  font-size: clamp(2rem, 4vw, 3rem);
   margin-bottom: 24px;
-  font-weight: 500;
 }
 
-.about-text {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;       /* horizontal center */
-  text-align: center;
-  padding: 60px;
-}
 .about-text p {
   max-width: 420px;
+  opacity: 0.85;
   line-height: 1.6;
-  opacity: 0.9;
 }
 
-.about-text strong {
-  font-weight: 600;
+/* MARQUEE ANIM */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
 }
 
-@media (max-width: 768px) {
+/* MOBILE */
+@media (max-width: 900px) {
   .about-inner {
     grid-template-columns: 1fr;
   }
-}
 
-@media (max-width: 768px) {
-  .about-image-wrap {
-    display: flex;
-    justify-content: center;
+  .about-divider {
+    display: none;
   }
-}
-@media (max-width: 768px) {
-  .about-text {
-    text-align: center;
-    padding: 32px 20px;
-  }
-}
-@media (max-width: 768px) {
-  .about {
-    padding-left: 0;
-    padding-right: 0;
-  }
-}
 
-@media (max-width: 768px) {
-  .diagonal-marquee {
-    transform: none;
-    position: relative;
-    margin-top: 24px;
+  .about-image {
+    min-height: 50vh;
   }
 }
 </style>
 
 {% schema %}
 {
-  "name": "About us",
+  "name": "About Us",
   "settings": [
     {
       "type": "image_picker",
@@ -217,7 +162,7 @@
   ],
   "presets": [
     {
-      "name": "About us"
+      "name": "About Us"
     }
   ]
 }
