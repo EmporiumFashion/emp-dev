@@ -143,14 +143,30 @@
   pointer-events: none;
   z-index: 9999;
 
-  background: rgba(255, 255, 255, 0.9);
+  /* visual effects */
+  background: rgba(255, 255, 255, 0.6);
   mix-blend-mode: difference;
 
-  backdrop-filter: invert(1) contrast(1.2) saturate(1.1) blur(1px);
-  -webkit-backdrop-filter: invert(1) contrast(1.2) saturate(1.1) blur(1px);
+  backdrop-filter: 
+    invert(1)
+    contrast(1.6)
+    saturate(1.2)
+    blur(0.5px);
+
+  -webkit-backdrop-filter: 
+    invert(1)
+    contrast(1.6)
+    saturate(1.2)
+    blur(0.5px);
 
   transform: translate(-50%, -50%);
-  transition: width 0.2s ease, height 0.2s ease;
+}
+
+/* disable on mobile */
+@media (hover: none), (max-width: 768px) {
+  .cursor-invert {
+    display: none;
+  }
 }
 
 /* Slight pulse / organic feel */
