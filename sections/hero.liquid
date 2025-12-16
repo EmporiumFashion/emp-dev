@@ -83,35 +83,6 @@
 }
 
 
-
-/* cursor invert */
-.cursor-invert {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 160px;
-  height: 160px;
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 9999;
-
-  background: rgba(255,255,255,0.95);
-  mix-blend-mode: difference;
-
-  backdrop-filter: invert(1) contrast(1.2) saturate(1.1);
-  -webkit-backdrop-filter: invert(1) contrast(1.2) saturate(1.1);
-
-  transform: translate(-50%, -50%);
-}
-
-@media (hover: none), (max-width: 768px) {
-  .cursor-invert {
-    display: none;
-  }
-}
-
-
-
 /* ===== LOCK IN MARQUEE ===== */
 
 .hero-marquee {
@@ -247,7 +218,7 @@
 </script>
 
 <script>
-  
+
 (function () {
   if (window.matchMedia('(hover: none)').matches || window.innerWidth < 768) return;
 
