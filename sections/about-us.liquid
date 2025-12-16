@@ -153,6 +153,19 @@
 .about-text strong {
   font-weight: 600;
 }
+
+@media (max-width: 768px) {
+  .about-inner {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .about-image-wrap {
+    display: flex;
+    justify-content: center;
+  }
+}
 </style>
 
 {% schema %}
