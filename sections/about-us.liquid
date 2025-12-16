@@ -1,21 +1,30 @@
 {% comment %}
-About Us – Luxury / Streetwear
+  About Us — Luxury / Streetwear
 {% endcomment %}
 
 <section class="about-us">
-  <div class="about-grid">
+  <div class="about-inner">
 
     <!-- IMAGE SIDE -->
     <div class="about-image">
-      {% if section.settings.image %}
+      {% if section.settings.image != blank %}
         <div class="image-frame">
           <img
             src="{{ section.settings.image | image_url: width: 900 }}"
             alt="About us image"
             loading="lazy"
             width="900"
-            height="1100"
+            height="1200"
           >
+        </div>
+
+        <!-- DIAGONAL MARQUEE (CLIPPED TO IMAGE SIDE) -->
+        <div class="diag-marquee">
+          <div class="diag-track">
+            {% for i in (1..30) %}
+              <span>LOCK IN.</span>
+            {% endfor %}
+          </div>
         </div>
       {% endif %}
     </div>
@@ -27,22 +36,12 @@ About Us – Luxury / Streetwear
     <div class="about-text">
       <h2>About us</h2>
       <p>
-        We started with <strong>obsession</strong>, not plans.
-        Late nights, raw ideas, and a belief that
-        <strong>luxury</strong> and <strong>streetwear</strong>
-        didn’t have to live apart.
-        Emporium is discipline, intention, and
-        <strong>locking in</strong> when no one’s watching.
+        We started with nothing but an idea and obsession.
+        Built late nights, <strong>raw ambition</strong>, and an
+        unfiltered love for detail. Emporium is about
+        <strong>locking in</strong>, ignoring noise, and creating
+        something that lasts.
       </p>
-    </div>
-
-    <!-- DIAGONAL MARQUEE -->
-    <div class="diagonal-marquee">
-      <div class="marquee-track">
-        {% for i in (1..20) %}
-          <span>LOCK&nbsp;IN.</span>
-        {% endfor %}
-      </div>
     </div>
 
   </div>
@@ -51,47 +50,90 @@ About Us – Luxury / Streetwear
 <style>
 .about-us {
   background: #000;
-  color: #fff;
+  color: #f5f5f2;
   width: 100vw;
   margin-left: calc(50% - 50vw);
   overflow: hidden;
 }
 
-.about-grid {
-  position: relative;
+.about-inner {
   display: grid;
   grid-template-columns: 1fr 1px 1fr;
-  min-height: 90vh;
+  min-height: 100vh;
 }
 
 /* IMAGE SIDE */
 .about-image {
+  position: relative;
+  overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
+/* PHOTO FRAME */
 .image-frame {
   border: 10px solid #fff;
-  transform: rotate(4deg);
+  transform: rotate(3.5deg);
+  z-index: 2;
+  filter: grayscale(1);
   position: relative;
-  overflow: hidden;
-}
-
-.image-frame::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  opacity: 0.06;
 }
 
 .image-frame img {
   display: block;
-  width: 420px;
+  width: 380px;
   height: auto;
-  filter: grayscale(1);
+}
+
+/* noise on image */
+.image-frame::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: 0.05;
+  pointer-events: none;
+}
+
+/* DIAGONAL MARQUEE */
+.diag-marquee {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.diag-track {
+  position: absolute;
+  white-space: nowrap;
+  font-family: Inter, Helvetica, Arial, sans-serif;
+  font-size: 4rem;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: #fff;
+  mix-blend-mode: difference;
+  transform: rotate(-20deg);
+  animation: diagScroll 20s linear infinite;
+}
+
+.diag-track span {
+  margin-right: 80px;
+}
+
+/* marquee reveals color under it */
+.diag-marquee:hover ~ .image-frame {
+  filter: grayscale(0);
+}
+
+@keyframes diagScroll {
+  from { transform: translateX(-50%) rotate(-20deg); }
+  to   { transform: translateX(0%) rotate(-20deg); }
+}
+
+/* DIVIDER */
+.about-divider {
+  background: rgba(255,255,255,0.25);
 }
 
 /* TEXT SIDE */
@@ -100,101 +142,44 @@ About Us – Luxury / Streetwear
   flex-direction: column;
   justify-content: center;
   padding: 80px;
-  text-align: center;
   font-family: Inter, Helvetica, Arial, sans-serif;
 }
 
 .about-text h2 {
-  font-size: 3rem;
+  font-size: 2.5rem;
   margin-bottom: 24px;
 }
 
 .about-text p {
   max-width: 420px;
-  margin: 0 auto;
   line-height: 1.6;
-  opacity: 0.85;
+  opacity: 0.9;
 }
 
-/* DIVIDER */
-.about-divider {
-  background: rgba(255,255,255,0.2);
-}
-
-/* DIAGONAL MARQUEE */
-.diagonal-marquee {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  overflow: hidden;
-}
-
-.marquee-track {
-  position: absolute;
-  top: 50%;
-  left: -50%;
-  display: flex;
-  gap: 60px;
-  transform: rotate(-12deg);
-  animation: marqueeMove 18s linear infinite;
-  white-space: nowrap;
-  mix-blend-mode: difference;
-}
-
-.marquee-track span {
-  font-family: Inter, Helvetica, Arial, sans-serif;
-  font-size: 3.5rem;
+.about-text strong {
   font-weight: 600;
 }
 
-/* COLOR REVEAL EFFECT */
-.about-image {
-  position: relative;
-}
-
-.about-image::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: transparent;
-  mix-blend-mode: difference;
-  pointer-events: none;
-}
-
-/* ANIMATION */
-@keyframes marqueeMove {
-  from {
-    transform: rotate(-12deg) translateX(0);
-  }
-  to {
-    transform: rotate(-12deg) translateX(-50%);
-  }
-}
-
-/* MOBILE FIX */
+/* MOBILE */
 @media (max-width: 768px) {
-  .about-grid {
+  .about-inner {
     grid-template-columns: 1fr;
   }
 
   .about-divider,
-  .diagonal-marquee {
+  .diag-marquee {
     display: none;
   }
 
-  .about-text {
-    padding: 40px 20px;
-  }
-
-  .image-frame img {
-    width: 260px;
+  .image-frame {
+    transform: rotate(0);
   }
 }
 </style>
 
 {% schema %}
 {
-  "name": "About us",
+  "name": "About Us",
   "settings": [
     {
       "type": "image_picker",
@@ -204,7 +189,7 @@ About Us – Luxury / Streetwear
   ],
   "presets": [
     {
-      "name": "About us"
+      "name": "About Us"
     }
   ]
 }
