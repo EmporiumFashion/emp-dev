@@ -193,18 +193,17 @@
 
 </style>
 
-<script>
+
 <script>
 (function () {
-  if (window.matchMedia('(hover: none)').matches || window.innerWidth < 768) return;
+  if (window.matchMedia('(hover: none)').matches) return;
 
   const cursor = document.querySelector('.cursor-invert');
   if (!cursor) return;
 
   let x = window.innerWidth / 2;
   let y = window.innerHeight / 2;
-  let cx = x;
-  let cy = y;
+  let cx = x, cy = y;
 
   document.addEventListener('mousemove', (e) => {
     x = e.clientX;
@@ -216,14 +215,13 @@
     cy += (y - cy) * 0.15;
 
     cursor.style.transform =
-      `translate(${cx}px, ${cy}px) translate(-50%, -50%)`;
+      `translate(${cx}px, ${cy}px) translate(-50%, -50%) scale(1.15)`;
 
     requestAnimationFrame(animate);
   }
 
   animate();
 })();
-</script>
 
 </script>
 
