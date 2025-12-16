@@ -1,113 +1,128 @@
 <section class="about-us">
-  <div class="about-divider"></div>
-
   <div class="about-inner">
-    <!-- Image side -->
+
+    <!-- LEFT : IMAGE -->
     <div class="about-image">
-      {% if section.settings.image != blank %}
+      <div class="image-frame">
         <img
-          src="{{ section.settings.image | image_url: width: 800 }}"
-          alt="About us image"
-          width="800"
-          height="1000"
-          loading="lazy"
+          src="{{ 'about.jpg' | asset_url }}"
+          alt="About us"
+          width="600"
+          height="800"
         >
-      {% endif %}
+      </div>
     </div>
 
-    <!-- Text side -->
+    <!-- DIVIDER -->
+    <div class="about-divider"></div>
+
+    <!-- RIGHT : TEXT -->
     <div class="about-text">
       <h2>About us</h2>
       <p>
-        We started with nothing but an idea and an obsession with <strong>craft</strong>,
-        <strong>discipline</strong>, and <strong>identity</strong>. What began as late nights
-        and unfinished sketches evolved into a brand built on <strong>intent</strong>,
-        <strong>precision</strong>, and refusing shortcuts. Every piece represents
-        commitment — to the process, the culture, and those who choose to <strong>lock in</strong>.
+        We started with a simple belief — <strong>focus creates culture</strong>.
+        What began as late nights and obsessive attention to detail slowly evolved
+        into a brand built on <strong>discipline</strong>, <strong>craft</strong>,
+        and the idea of staying locked in when others drift away.
       </p>
     </div>
+
   </div>
 </section>
 
 <style>
 .about-us {
-  width: 100vw;
-  margin-left: calc(50% - 50vw);
   background: #000;
   color: #fff;
-  padding: 80px 0;
-  font-family: Helvetica, Inter, Arial, sans-serif;
-}
-
-/* full-width divider */
-.about-divider {
-  height: 1px;
-  width: 100%;
-  background: rgba(255,255,255,0.25);
-  margin-bottom: 80px;
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  overflow: hidden;
 }
 
 .about-inner {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 80px;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 24px;
-  align-items: center;
+  grid-template-columns: 1fr 1px 1fr;
+  min-height: 90vh;
 }
 
-/* image */
-.about-image img {
-  width: 100%;
+/* divider */
+.about-divider {
+  background: rgba(255,255,255,0.15);
+  width: 1px;
+}
+
+/* image side */
+.about-image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.image-frame {
   border: 10px solid #fff;
   transform: rotate(3.5deg);
-  display: block;
+  max-width: 60%;
 }
 
-/* text */
+.image-frame img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* text side */
+.about-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 8vw;
+  font-family: Inter, Helvetica, Arial, sans-serif;
+}
+
 .about-text h2 {
-  font-size: clamp(2.2rem, 4vw, 3rem);
-  margin-bottom: 24px;
+  font-size: clamp(2.5rem, 4vw, 4rem);
+  margin-bottom: 2rem;
   font-weight: 500;
 }
 
 .about-text p {
+  max-width: 520px;
   font-size: 1rem;
-  line-height: 1.7;
+  line-height: 1.8;
   opacity: 0.9;
 }
 
 .about-text strong {
-  font-weight: 700;
+  font-weight: 600;
 }
 
 /* mobile */
 @media (max-width: 900px) {
   .about-inner {
     grid-template-columns: 1fr;
-    gap: 60px;
   }
 
-  .about-image img {
+  .about-divider {
+    display: none;
+  }
+
+  .image-frame {
     transform: rotate(2deg);
+    max-width: 80%;
+  }
+
+  .about-text {
+    padding: 12vw 8vw;
   }
 }
 </style>
 
 {% schema %}
 {
-  "name": "About Us",
-  "settings": [
-    {
-      "type": "image_picker",
-      "id": "image",
-      "label": "About image"
-    }
-  ],
+  "name": "About us",
   "presets": [
     {
-      "name": "About Us"
+      "name": "About us"
     }
   ]
 }
