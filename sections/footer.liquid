@@ -1,57 +1,112 @@
-<footer>
-  <div class="footer__copyright">
-    &copy;
-    {{ 'now' | date: '%Y' }}
-    {{ shop.name | link_to: routes.root_url }}, {{ powered_by_link }}
-  </div>
+{% comment %}
+  Minimal Luxury Footer – EMPORIUM
+{% endcomment %}
 
-  <div class="footer__links">
-    {% for link in section.settings.menu.links %}
-      {{ link.title | link_to: link.url }}
-    {% endfor %}
-  </div>
+<footer class="emp-footer">
+  <div class="footer-inner">
 
-  <div class="footer__payment">
-    {% if section.settings.show_payment_icons %}
-      {% for type in shop.enabled_payment_types %}
-        {{ type | payment_type_svg_tag }}
-      {% endfor %}
-    {% endif %}
+    <!-- Left -->
+    <div class="footer-left">
+      <span class="footer-logo">E</span>
+    </div>
+
+    <!-- Center -->
+    <div class="footer-center">
+      <p>© {{ 'now' | date: '%Y' }} Emporium</p>
+      <p class="footer-sub">Luxury × Streetwear</p>
+    </div>
+
+    <!-- Right -->
+    <div class="footer-right">
+      <a href="/collections/all">Shop</a>
+      <a href="/pages/about">About</a>
+      <a href="/policies/privacy-policy">Privacy</a>
+    </div>
+
   </div>
 </footer>
 
-{% stylesheet %}
-  footer {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 2rem;
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=UnifrakturMaguntia&display=swap');
+
+.emp-footer {
+  background: #000;
+  color: #f5f5f2;
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  border-top: 1px solid rgba(245,245,242,0.15);
+}
+
+.footer-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 48px 24px;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+}
+
+/* Left */
+.footer-logo {
+  font-family: 'UnifrakturMaguntia', serif;
+  font-size: 2.8rem;
+  letter-spacing: 2px;
+}
+
+/* Center */
+.footer-center {
+  text-align: center;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.85rem;
+  opacity: 0.75;
+}
+
+.footer-sub {
+  margin-top: 4px;
+  font-weight: 300;
+}
+
+/* Right */
+.footer-right {
+  display: flex;
+  justify-content: flex-end;
+  gap: 28px;
+}
+
+.footer-right a {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.8rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: #f5f5f2;
+  opacity: 0.7;
+  transition: opacity 0.2s ease;
+}
+
+.footer-right a:hover {
+  opacity: 1;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .footer-inner {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    text-align: center;
   }
-  footer a {
-    text-decoration: none;
-    color: var(--color-foreground);
+
+  .footer-right {
+    justify-content: center;
   }
-  footer .footer__links,
-  footer .footer__payment {
-    display: flex;
-    gap: 1rem;
-  }
-{% endstylesheet %}
+}
+</style>
 
 {% schema %}
 {
-  "name": "t:general.footer",
-  "settings": [
-    {
-      "type": "link_list",
-      "id": "menu",
-      "label": "t:labels.menu"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_payment_icons",
-      "label": "t:labels.show_payment_icons",
-      "default": true
-    }
+  "name": "Footer",
+  "presets": [
+    { "name": "Footer" }
   ]
 }
 {% endschema %}
