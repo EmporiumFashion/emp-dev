@@ -1,0 +1,131 @@
+{% comment %}
+  Minimal Luxury Hero
+  - Cursor invert (desktop only)
+  - Black background
+  - UnifrakturMaguntia font
+  - Clean, stable, no float bugs
+{% endcomment %}
+
+<section class="hero">
+  <div class="hero-inner">
+    <h1 class="hero-title">{{ section.settings.heading }}</h1>
+    <p class="hero-sub">{{ section.settings.subheading }}</p>
+  </div>
+
+  <div class="cursor-invert" aria-hidden="true"></div>
+</section>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&display=swap');
+
+.hero {
+  min-height: 80vh;
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  background: #000;
+  color: #f5f5f2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* subtle noise */
+.hero::after {
+  content: '';
+  position: absolute;
+  inset: -50%;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: 0.015;
+  pointer-events: none;
+}
+
+.hero-inner {
+  text-align: center;
+  z-index: 2;
+  padding: 24px;
+}
+
+.hero-title {
+  font-family: 'UnifrakturMaguntia', serif;
+  font-size: clamp(4rem, 10vw, 9rem);
+  font-weight: 400;
+  letter-spacing: 8px;
+  text-transform: lowercase;
+}
+
+.hero-sub {
+  margin-top: 18px;
+  opacity: 0.7;
+  letter-spacing: 1px;
+}
+
+/* cursor invert */
+.cursor-invert {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  background: #fff;
+  mix-blend-mode: difference;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+}
+
+@media (hover: none), (max-width: 768px) {
+  .cursor-invert {
+    display: none;
+  }
+}
+</style>
+
+<script>
+(function () {
+  if (window.matchMedia('(hover: none)').matches || window.innerWidth < 768) return;
+
+  const cursor = document.querySelector('.cursor-invert');
+  if (!cursor) return;
+
+  let x = window.innerWidth / 2;
+  let y = window.innerHeight / 2;
+
+  document.addEventListener('mousemove', e => {
+    x = e.clientX;
+    y = e.clientY;
+  });
+
+  function loop() {
+    cursor.style.transform =
+      `translate(${x}px, ${y}px) translate(-50%, -50%)`;
+    requestAnimationFrame(loop);
+  }
+  loop();
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Hero",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "emporium"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "luxury meets streetwear"
+    }
+  ],
+  "presets": [
+    { "name": "Hero" }
+  ]
+}
+{% endschema %}
