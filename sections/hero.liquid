@@ -137,30 +137,23 @@
   position: fixed;
   top: 0;
   left: 0;
-  width: 140px;
-  height: 140px;
+  width: 160px;
+  height: 160px;
   border-radius: 50%;
   pointer-events: none;
   z-index: 9999;
 
-  /* visual effects */
-  background: rgba(255, 255, 255, 0.6);
-  mix-blend-mode: difference;
+  /* glass effect */
+  backdrop-filter: invert(1) contrast(1.4) saturate(1.1);
+  -webkit-backdrop-filter: invert(1) contrast(1.4) saturate(1.1);
 
-  backdrop-filter: 
-    invert(1)
-    contrast(1.6)
-    saturate(1.2)
-    blur(0.5px);
+  /* subtle edge */
+  box-shadow: 0 0 0 1px rgba(255,255,255,0.15);
 
-  -webkit-backdrop-filter: 
-    invert(1)
-    contrast(1.6)
-    saturate(1.2)
-    blur(0.5px);
-
-  transform: translate(-50%, -50%);
+  /* magnification illusion */
+  transform: translate(-50%, -50%) scale(1.15);
 }
+
 
 /* disable on mobile */
 @media (hover: none), (max-width: 768px) {
