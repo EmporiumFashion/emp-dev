@@ -1,143 +1,149 @@
 {% comment %}
-  Welcome to Shopify theme development!
+  Click-to-Enter Intro Overlay
+  Save as: sections/intro-overlay.liquid
+
+Blackletter EMPORIUM headline (UnifrakturMaguntia)
+
+Clean black-on-white aesthetic
+
+Click anywhere to enter
+
+Smooth fade + slight zoom exit
+
+Subtle vignette for depth
+
+Film-grain noise for luxury/editorial feel
+
+Pulsing “Click to enter” micro-interaction
+
+
 {% endcomment %}
 
-<div class="welcome full-width">
-  <div class="welcome-content">
-    <div>
-      <h1>Hello, World!</h1>
-
-      <p class="welcome-description">
-        The Skeleton theme is a minimal, carefully structured Shopify theme designed to help you quickly get started.
-        Designed with modularity, maintainability, and Shopify's best practices in mind.
-      </p>
-
-      <p class="welcome-description">
-        Themes shape the online store experience for merchants and their customers. Build fast, flexible themes at scale
-        using Liquid, Shopify's theme templating language, along with HTML, CSS, JavaScript, and JSON.
-      </p>
-    </div>
-    <div class="icon">
-      <img src="{{ 'shoppy-x-ray.svg' | asset_url }}" width="300" height="300">
-    </div>
+<div id="intro-overlay" class="intro-overlay" onclick="enterSite()">
+  <div class="intro-content">
+    <h1 class="intro-title">emporium</h1>
+    <p class="intro-sub">Click to enter</p>
+    
   </div>
 </div>
 
-<div class="highlights">
-  <div class="highlight">
-    <h3>Key Concepts</h3>
-    <p class="highlight-description">
-      Shopify themes are a package of template files, building blocks, and supporting assets. Use these building blocks
-      to create modular, customizable themes.
-    </p>
-    <p>{{ 'Learn more about key concepts' | link_to: 'https://shopify.dev/docs/storefronts/themes/architecture' }}</p>
-  </div>
+<script>
+function enterSite() {
+  const overlay = document.getElementById('intro-overlay');
+  overlay.classList.add('exit');
+  sessionStorage.setItem('introSeen', 'true');
+}
 
-  <div class="highlight">
-    <h3>Liquid</h3>
-    <p class="highlight-description">
-      The Liquid templating language is the backbone of Shopify themes, and is used to load dynamic content on
-      storefronts. Extend Liquid objects to store and present custom data using metafields.
-    </p>
-    <p>{{ 'View the Liquid reference' | link_to: 'https://shopify.dev/docs/api/liquid' }}</p>
-  </div>
+if (sessionStorage.getItem('introSeen') === 'true') {
+  document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('intro-overlay').style.display = 'none';
+  });
+}
+</script>
 
-  <div class="highlight">
-    <h3>Best Practices</h3>
-    <p class="highlight-description">
-      To optimize your theme development experience, Shopify has established a set of best practices that you can refer
-      to when developing your theme and setting up your toolchains and processes.
-    </p>
-    <p>{{ 'Follow best practices' | link_to: 'https://shopify.dev/docs/storefronts/themes/best-practices' }}</p>
-  </div>
-</div>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&display=swap');
 
-{% stylesheet %}
-  .welcome {
-    display: grid;
-    grid-template-columns: var(--content-grid);
-    background-color: #f6f6f7;
-    padding: 72px 0;
-  }
+/* ===== Overlay Base ===== */
+.intro-overlay {
+  position: fixed;
+  inset: 0;
+  background: #000;
+  z-index: 9999;
+  display: grid;
+  place-items: center;
+  transition: opacity 1s ease, visibility 1s ease, transform 1s ease;
+  cursor: pointer;
+}
 
-  .welcome-content {
-    grid-column: 2;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 1rem;
-    width: 100%;
-    padding: 0 24px;
-  }
+/* Subtle vignette */
+.intro-overlay::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(circle at center, rgba(0,0,0,0) 55%, rgba(255,255,255,0.08) 100%);
+}
 
-  .welcome-description {
-    max-width: 80ch;
-    line-height: 1.4;
-    margin-top: 1.5rem;
-  }
+/* Film grain / noise */
+.intro-overlay::after {
+  content: '';
+  position: absolute;
+  inset: -50%;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  animation: grainMove 8s steps(10) infinite;
+}
 
-  .icon {
-    width: 300px;
-  }
+@keyframes grainMove {
+  0% { transform: translate(0,0); }
+  25% { transform: translate(-5%, 5%); }
+  50% { transform: translate(5%, -5%); }
+  75% { transform: translate(-5%, -5%); }
+  100% { transform: translate(0,0); }
+}
 
-  .highlights {
-    display: grid;
-    gap: 2rem;
-    grid-template-columns: repeat(3, 1fr);
-    margin-top: 50px;
-  }
+/* ===== Content ===== */
+.intro-content {
+  text-align: center;
+  color: #f5f5f2;
+  animation: introFade 1.2s ease both;
+}
 
-  @media (max-width: 1100px) {
-    .highlights {
-      grid-template-columns: 1fr;
-    }
-  }
+.intro-title {
+  font-family: 'UnifrakturMaguntia', serif;
+  font-size: clamp(3rem, 7vw, 6rem);
+  letter-spacing: 6px;
+}
 
-  .highlight {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    padding: 24px;
-    border-radius: 8px;
-    background-color: #eef3ff;
-    color: rgb(92, 95, 98);
-    line-height: 1.4;
-  }
+.intro-sub {
+  margin-top: 20px;
+  font-size: 0.8rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  opacity: 0.6;
+  animation: pulse 2.5s ease-in-out infinite;
+}
 
-  .highlight > * + * {
-    margin-top: 1rem;
-  }
+@keyframes pulse {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.8; }
+}
 
-  .highlight h3 {
-    font-size: 1rem;
-    color: rgb(32, 34, 35);
-  }
+/* ===== Exit Transition ===== */
+.intro-overlay.exit {
+  opacity: 0;
+  visibility: hidden;
+  transform: scale(1.05);
+}
 
-  .highlight-description {
-    flex: 1 1;
-  }
-
-  .highlight a {
-    display: flex;
-    width: fit-content;
-    background-color: rgb(250, 251, 251);
-    box-shadow: rgba(0, 0, 0, 0.2) 0px -3px 0px 0px inset, rgba(255, 255, 255, 0.9) 0px 2px 0px 0px inset;
-    border: 1px solid rgb(140, 145, 150);
-    border-radius: 4px;
-    color: rgb(92, 95, 98);
-    padding: 3px 10px 5px;
-    text-decoration: none;
-  }
-{% endstylesheet %}
+@keyframes introFade {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+</style>
 
 {% schema %}
 {
-  "name": "Hello World",
-  "settings": [],
-  "presets": [
+  "name": "Click to Enter Intro",
+  "settings": [
     {
-      "name": "Hello World Template",
-      "category": "Demo"
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Welcome"
+    },
+    {
+      "type": "text",
+      "id": "tagline",
+      "label": "Tagline",
+      "default": "Click to enter the experience"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "Enter"
     }
   ]
 }
