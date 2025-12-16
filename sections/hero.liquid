@@ -98,14 +98,17 @@
 
 
 /* ===== LOCK IN MARQUEE ===== */
-.marquee {
-  position: relative;
+
+.hero-marquee {
+  position: absolute;
+  bottom: 0;
+  left: 0;
   width: 100%;
   overflow: hidden;
   border-top: 1px solid rgba(255,255,255,0.15);
-  border-bottom: 1px solid rgba(255,255,255,0.15);
-  padding: 12px 0;
-  background: transparent;
+  padding: 20px 0;
+  background: #000;
+  z-index: 3;
 }
 
 .marquee-track {
@@ -114,17 +117,18 @@
   animation: marquee-scroll 18s linear infinite;
 }
 
-.marquee span {
-  font-family: 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  font-size: clamp(0.9rem, 1.6vw, 1.1rem);
-  font-weight: 500;
-  letter-spacing: 0.35em;
+.marquee-track span {
+  font-family: Inter, Helvetica, Arial, sans-serif;
+  font-size: clamp(2.5rem, 6vw, 6rem);
+  font-weight: 600;
+  letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: rgba(245,245,242,0.75);
+  color: #f5f5f2;
   white-space: nowrap;
-  margin-right: 3rem;
+  padding-right: 80px;
 }
 
+/* animation */
 @keyframes marquee-scroll {
   from {
     transform: translateX(0);
@@ -134,13 +138,14 @@
   }
 }
 
-/* softer on mobile */
+/* mobile tuning */
 @media (max-width: 768px) {
-  .marquee span {
-    letter-spacing: 0.25em;
-    opacity: 0.6;
+  .marquee-track span {
+    font-size: 2rem;
+    padding-right: 48px;
   }
 }
+
 
 
 
