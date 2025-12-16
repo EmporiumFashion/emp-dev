@@ -41,36 +41,7 @@ if (sessionStorage.getItem('introSeen') === 'true') {
 }
 </script>
 
-<script>
-(function () {
-  if (window.matchMedia('(hover: none)').matches) return;
 
-  const cursor = document.querySelector('.cursor-effect');
-  if (!cursor) return;
-
-  let x = window.innerWidth / 2;
-  let y = window.innerHeight / 2;
-  let cx = x;
-  let cy = y;
-
-  document.addEventListener('mousemove', e => {
-    x = e.clientX;
-    y = e.clientY;
-  });
-
-  function animate() {
-    cx += (x - cx) * 0.12;
-    cy += (y - cy) * 0.12;
-
-    cursor.style.transform =
-      `translate(${cx}px, ${cy}px) translate(-50%, -50%) scale(1.05)`;
-
-    requestAnimationFrame(animate);
-  }
-
-  animate();
-})();
-</script>
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&display=swap');
@@ -155,36 +126,7 @@ if (sessionStorage.getItem('introSeen') === 'true') {
 }
 
 
-/* CURSOR EFFECT */
-.cursor-effect {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 140px;
-  height: 140px;
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 9999;
 
-  background: rgba(255,255,255,0.95);
-  mix-blend-mode: difference;
-
-  backdrop-filter: contrast(1.4) saturate(1.2) blur(1px);
-  -webkit-backdrop-filter: contrast(1.4) saturate(1.2) blur(1px);
-
-  transform: translate(-50%, -50%);
-}
-
-/* MOBILE */
-@media (hover: none), (max-width: 768px) {
-  .cursor-effect {
-    display: none;
-  }
-
-  .header-inner {
-    padding: 0 16px;
-  }
-}
 </style>
 
 {% schema %}
