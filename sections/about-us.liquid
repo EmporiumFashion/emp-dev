@@ -1,0 +1,114 @@
+<section class="about-us">
+  <div class="about-divider"></div>
+
+  <div class="about-inner">
+    <!-- Image side -->
+    <div class="about-image">
+      {% if section.settings.image != blank %}
+        <img
+          src="{{ section.settings.image | image_url: width: 800 }}"
+          alt="About us image"
+          width="800"
+          height="1000"
+          loading="lazy"
+        >
+      {% endif %}
+    </div>
+
+    <!-- Text side -->
+    <div class="about-text">
+      <h2>About us</h2>
+      <p>
+        We started with nothing but an idea and an obsession with <strong>craft</strong>,
+        <strong>discipline</strong>, and <strong>identity</strong>. What began as late nights
+        and unfinished sketches evolved into a brand built on <strong>intent</strong>,
+        <strong>precision</strong>, and refusing shortcuts. Every piece represents
+        commitment — to the process, the culture, and those who choose to <strong>lock in</strong>.
+      </p>
+    </div>
+  </div>
+</section>
+
+<style>
+.about-us {
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  background: #000;
+  color: #fff;
+  padding: 80px 0;
+  font-family: Helvetica, Inter, Arial, sans-serif;
+}
+
+/* full-width divider */
+.about-divider {
+  height: 1px;
+  width: 100%;
+  background: rgba(255,255,255,0.25);
+  margin-bottom: 80px;
+}
+
+.about-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+  align-items: center;
+}
+
+/* image */
+.about-image img {
+  width: 100%;
+  border: 10px solid #fff;
+  transform: rotate(3.5deg);
+  display: block;
+}
+
+/* text */
+.about-text h2 {
+  font-size: clamp(2.2rem, 4vw, 3rem);
+  margin-bottom: 24px;
+  font-weight: 500;
+}
+
+.about-text p {
+  font-size: 1rem;
+  line-height: 1.7;
+  opacity: 0.9;
+}
+
+.about-text strong {
+  font-weight: 700;
+}
+
+/* mobile */
+@media (max-width: 900px) {
+  .about-inner {
+    grid-template-columns: 1fr;
+    gap: 60px;
+  }
+
+  .about-image img {
+    transform: rotate(2deg);
+  }
+}
+</style>
+
+{% schema %}
+{
+  "name": "About Us",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "About image"
+    }
+  ],
+  "presets": [
+    {
+      "name": "About Us"
+    }
+  ]
+}
+{% endschema %}
