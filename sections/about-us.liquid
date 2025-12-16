@@ -1,4 +1,8 @@
-<section class="about">
+{% comment %}
+About Us – Luxury / Streetwear
+{% endcomment %}
+
+<section class="about-us">
   <div class="about-grid">
 
     <!-- IMAGE SIDE -->
@@ -7,10 +11,10 @@
         <div class="image-frame">
           <img
             src="{{ section.settings.image | image_url: width: 900 }}"
-            alt="About image"
-            width="900"
-            height="1200"
+            alt="About us image"
             loading="lazy"
+            width="900"
+            height="1100"
           >
         </div>
       {% endif %}
@@ -23,141 +27,167 @@
     <div class="about-text">
       <h2>About us</h2>
       <p>
-        We started with a belief in <strong>discipline</strong>, obsession with
-        <strong>craft</strong>, and a refusal to follow trends. What began as an
-        idea became <strong>emporium</strong> — a space where luxury and
-        streetwear <strong>lock in</strong> together.
+        We started with <strong>obsession</strong>, not plans.
+        Late nights, raw ideas, and a belief that
+        <strong>luxury</strong> and <strong>streetwear</strong>
+        didn’t have to live apart.
+        Emporium is discipline, intention, and
+        <strong>locking in</strong> when no one’s watching.
       </p>
     </div>
-  </div>
 
-  <!-- DIAGONAL MARQUEE -->
-  <div class="about-marquee">
-    <div class="about-marquee-track">
-      <span>LOCK IN.</span><span>LOCK IN.</span><span>LOCK IN.</span>
-      <span>LOCK IN.</span><span>LOCK IN.</span>
+    <!-- DIAGONAL MARQUEE -->
+    <div class="diagonal-marquee">
+      <div class="marquee-track">
+        {% for i in (1..20) %}
+          <span>LOCK&nbsp;IN.</span>
+        {% endfor %}
+      </div>
     </div>
+
   </div>
 </section>
 
 <style>
-.about {
+.about-us {
   background: #000;
   color: #fff;
   width: 100vw;
   margin-left: calc(50% - 50vw);
-  position: relative;
   overflow: hidden;
 }
 
 .about-grid {
+  position: relative;
   display: grid;
   grid-template-columns: 1fr 1px 1fr;
   min-height: 90vh;
 }
 
-/* IMAGE */
+/* IMAGE SIDE */
 .about-image {
   display: flex;
   align-items: center;
   justify-content: center;
-  position: relative;
 }
 
 .image-frame {
   border: 10px solid #fff;
-  transform: rotate(3deg);
+  transform: rotate(4deg);
   position: relative;
   overflow: hidden;
 }
 
+.image-frame::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: 0.06;
+}
+
 .image-frame img {
   display: block;
-  width: 100%;
+  width: 420px;
   height: auto;
-  filter: grayscale(1) contrast(1.1);
-  transition: filter 0.4s ease;
+  filter: grayscale(1);
 }
 
-/* DIVIDER */
-.about-divider {
-  background: rgba(255,255,255,0.25);
-}
-
-/* TEXT */
+/* TEXT SIDE */
 .about-text {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 10vw;
+  padding: 80px;
+  text-align: center;
   font-family: Inter, Helvetica, Arial, sans-serif;
 }
 
 .about-text h2 {
-  font-size: clamp(2.5rem, 5vw, 4rem);
-  margin-bottom: 20px;
+  font-size: 3rem;
+  margin-bottom: 24px;
 }
 
 .about-text p {
-  max-width: 480px;
+  max-width: 420px;
+  margin: 0 auto;
   line-height: 1.6;
   opacity: 0.85;
 }
 
-/* MARQUEE */
-.about-marquee {
+/* DIVIDER */
+.about-divider {
+  background: rgba(255,255,255,0.2);
+}
+
+/* DIAGONAL MARQUEE */
+.diagonal-marquee {
   position: absolute;
   inset: 0;
   pointer-events: none;
-  z-index: 5;
   overflow: hidden;
 }
 
-.about-marquee-track {
+.marquee-track {
   position: absolute;
   top: 50%;
   left: -50%;
   display: flex;
-  gap: 80px;
+  gap: 60px;
   transform: rotate(-12deg);
-  animation: marquee 18s linear infinite;
-  font-family: Inter, Helvetica, Arial, sans-serif;
-  font-size: clamp(3rem, 8vw, 7rem);
-  letter-spacing: 0.2em;
+  animation: marqueeMove 18s linear infinite;
   white-space: nowrap;
   mix-blend-mode: difference;
 }
 
-.about-marquee span {
-  color: #fff;
+.marquee-track span {
+  font-family: Inter, Helvetica, Arial, sans-serif;
+  font-size: 3.5rem;
+  font-weight: 600;
 }
 
-/* COLOR REVEAL WHERE MARQUEE PASSES */
-.about-marquee-track:hover ~ .about-grid .image-frame img {
-  filter: grayscale(0) contrast(1.1);
+/* COLOR REVEAL EFFECT */
+.about-image {
+  position: relative;
 }
 
-@keyframes marquee {
-  from { transform: translateX(0) rotate(-12deg); }
-  to { transform: translateX(50%) rotate(-12deg); }
+.about-image::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: transparent;
+  mix-blend-mode: difference;
+  pointer-events: none;
 }
 
-/* MOBILE */
+/* ANIMATION */
+@keyframes marqueeMove {
+  from {
+    transform: rotate(-12deg) translateX(0);
+  }
+  to {
+    transform: rotate(-12deg) translateX(-50%);
+  }
+}
+
+/* MOBILE FIX */
 @media (max-width: 768px) {
   .about-grid {
     grid-template-columns: 1fr;
   }
 
-  .about-divider {
+  .about-divider,
+  .diagonal-marquee {
     display: none;
   }
 
-  .about-marquee {
-    display: none;
+  .about-text {
+    padding: 40px 20px;
   }
 
-  .image-frame {
-    transform: rotate(2deg);
+  .image-frame img {
+    width: 260px;
   }
 }
 </style>
