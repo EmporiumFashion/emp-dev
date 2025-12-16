@@ -21,13 +21,20 @@
       "type": "hero",
       "name": "Hero",
       "settings": {
-        "heading": "emporium",
-        "subheading": "luxury meets streetwear"
+        "heading": "emporium"
+      }
+    },
+    "about_us_gyfbem": {
+      "type": "about-us",
+      "name": "About us",
+      "settings": {
+        "image": "shopify://shop_images/6572ee1397eb5b39d9f9e35a062d3917.jpg"
       }
     }
   },
   "order": [
     "main",
-    "hero_EzUykP"
+    "hero_EzUykP",
+    "about_us_gyfbem"
   ]
 }
