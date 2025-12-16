@@ -1,200 +1,230 @@
-{% comment %}
-  About Us – Luxury / Streetwear
-{% endcomment %}
+<section class="about-us">
+  <div class="about-grid">
 
-<section class="about">
-  <div class="about-inner">
+    <!-- Image side -->
+    <div class="about-image-wrap">
+      {% if section.settings.image != blank %}
+        <img
+          src="{{ section.settings.image | image_url: width: 900 }}"
+          alt="About us"
+          width="900"
+          height="1200"
+        >
+      {% endif %}
+    </div>
 
-    <!-- IMAGE SIDE -->
-   
-<img
-  src="{{ section.settings.image | image_url: width: 800 }}"
-  alt=""
-  class="about-image"
-  width="800"
-  height="1000"
-  loading="lazy"
-/>
-
-
-
-
-    <!-- DIVIDER -->
+    <!-- Divider -->
     <div class="about-divider"></div>
 
-    <!-- TEXT SIDE -->
+
+<div class="about-diagonal-marquee">
+  <div class="about-diagonal-track">
+    <span>Lock in.</span>
+    <span>Lock in.</span>
+    <span>Lock in.</span>
+    <span>Lock in.</span>
+    <span>Lock in.</span>
+  </div>
+</div>
+
+
+    <!-- Text side -->
     <div class="about-text">
-      <h2>About Us</h2>
+      <h2>About us</h2>
       <p>
-        We started with a belief in <strong>discipline</strong>,
-        <strong>identity</strong>, and <strong>focus</strong>.
-        What began as a late-night idea turned into a movement built on
-        consistency, intent, and timeless design.
-        Emporium is about <strong>locking in</strong> — every day.
+        We started with a belief in <strong>discipline</strong>, <strong>focus</strong>,
+        and the power of <strong>showing up daily</strong>. What began as an idea
+        turned into a movement built on consistency, intent, and obsession with
+        craft. This is more than clothing — it’s a mindset.
       </p>
     </div>
 
   </div>
-  <div class="about-diagonal-marquee">
-  <div class="about-diagonal-track">
-    <span>Lock In. Lock In. Lock In. Lock In. Lock In.</span>
-    <span>Lock In. Lock In. Lock In. Lock In. Lock In.</span>
-  </div>
-</div>
-
 </section>
 
 <style>
-.about {
-  background: #000;
-  color: #fff;
-  width: 100vw;
-  margin-left: calc(50% - 50vw);
-}
-
-.about-inner {
-  display: grid;
-  grid-template-columns: 1fr 1px 1fr;
-  min-height: 100vh;
-}
-
-/* divider */
-.about-divider {
-  background: rgba(255,255,255,0.2);
-}
-
-/* IMAGE SIDE */
-.about-image {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.image-frame {
-  border: 10px solid #fff;
-  transform: rotate(3.5deg);
-  position: relative;
-}
-
-.image-frame::after {
-  content: "";
+.about-marquee {
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  opacity: 0.08;
+  z-index: 3;
+  mix-blend-mode: difference;
+}
+.about-marquee span {
+  color: white;
+  font-weight: 600;
+}
+.about-image-wrap {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
 }
 
-.image-frame img {
-  display: block;
-  width: 320px;
-  height: auto;
-  filter: grayscale(1) contrast(1.05);
-}
-
-/* TEXT SIDE */
-.about-text {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 80px;
-  font-family: Inter, Helvetica, Arial, sans-serif;
-}
-
-.about-text h2 {
-  font-size: clamp(2.5rem, 5vw, 4rem);
-  margin-bottom: 24px;
-  letter-spacing: 1px;
-}
-
-.about-text p {
-  max-width: 420px;
-  line-height: 1.6;
-  opacity: 0.85;
-}
-
-/* MOBILE */
-@media (max-width: 900px) {
-  .about-inner {
-    grid-template-columns: 1fr;
-  }
-
-  .about-divider {
-    display: none;
-  }
-
-  .image-frame {
-    transform: rotate(2deg);
-    margin: 40px 0;
-  }
-
-  .about-text {
-    padding: 40px 24px;
-  }
-}
+/* diagonal marquee container */
 .about-diagonal-marquee {
   position: absolute;
   inset: 0;
   overflow: hidden;
   pointer-events: none;
-  z-index: 4;
+  z-index: 0;
 }
 
+/* diagonal scrolling text */
 .about-diagonal-track {
   position: absolute;
   top: 50%;
-  left: -50%;
-  width: 200%;
-  transform: rotate(-12deg);
+  left: -20%;
   display: flex;
+  gap: 80px;
+  transform: rotate(-12deg) translateY(-50%);
   white-space: nowrap;
-  gap: 6rem;
-  animation: diagonalScroll 18s linear infinite;
+  animation: diagonalScroll 22s linear infinite;
 }
 
+/* text style — MATCHES HERO MARQUEE */
 .about-diagonal-track span {
   font-family: Inter, Helvetica, Arial, sans-serif;
-  font-size: clamp(3rem, 6vw, 7rem);
-  font-weight: 600;
+  font-size: clamp(3rem, 6vw, 6rem);
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.06);
   text-transform: uppercase;
-  color: #fff;
-  opacity: 0.08;
+  letter-spacing: 0.15em;
 }
 
+/* animation */
 @keyframes diagonalScroll {
   from {
-    transform: rotate(-12deg) translateX(0);
+    transform: rotate(-12deg) translateX(0) translateY(-50%);
   }
   to {
-    transform: rotate(-12deg) translateX(-50%);
+    transform: rotate(-12deg) translateX(-50%) translateY(-50%);
+  }
+}
+
+
+.about-us {
+  background: #000;
+  color: #fff;
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  padding: 0;
+}
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1px 1fr;
+  min-height: 80vh;
+}
+
+/* Divider */
+.about-divider {
+  background: rgba(255,255,255,0.15);
+  width: 1px;
+}
+
+
+.about-image {
+  filter: grayscale(1) contrast(1.05);
+  position: relative;
+  z-index: 1;
+}
+
+
+/* Image side */
+.about-image-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.about-image-wrap img {
+  max-width: 70%;
+  border: 10px solid #fff;
+  transform: rotate(3.5deg);
+  object-fit: cover;
+}
+
+/* Text side */
+.about-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 80px;
+  font-family: Inter, Helvetica, Arial, sans-serif;
+}
+
+.about-text h2 {
+  font-size: 3rem;
+  margin-bottom: 24px;
+  font-weight: 500;
+}
+
+.about-text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;       /* horizontal center */
+  text-align: center;
+  padding: 60px;
+}
+.about-text p {
+  max-width: 420px;
+  line-height: 1.6;
+  opacity: 0.9;
+}
+
+.about-text strong {
+  font-weight: 600;
+}
+
+@media (max-width: 768px) {
+  .about-inner {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .about-image-wrap {
+    display: flex;
+    justify-content: center;
   }
 }
 @media (max-width: 768px) {
-  .diagonal-marquee {
-    display: none;
+  .about-text {
+    text-align: center;
+    padding: 32px 20px;
   }
+}
+@media (max-width: 768px) {
+  .about {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
 
-  .about-image-wrap {
-    transform: rotate(0deg);
+@media (max-width: 768px) {
+  .diagonal-marquee {
+    transform: none;
+    position: relative;
+    margin-top: 24px;
   }
 }
 </style>
 
 {% schema %}
 {
-  "name": "About Us",
+  "name": "About us",
   "settings": [
     {
       "type": "image_picker",
       "id": "image",
-      "label": "About image FUCK SCHEMA AAAAAA 🤑🤑"
+      "label": "About image"
     }
   ],
   "presets": [
     {
-      "name": "About Us"
+      "name": "About us"
     }
   ]
 }
