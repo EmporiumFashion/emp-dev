@@ -1,29 +1,29 @@
 <section class="about-us">
-  <div class="about-inner">
+  <div class="about-grid">
 
-    <!-- LEFT : IMAGE -->
-    <div class="about-image">
-      <div class="image-frame">
+    <!-- Image side -->
+    <div class="about-image-wrap">
+      {% if section.settings.image != blank %}
         <img
-          src="{{ 'about.jpg' | asset_url }}"
+          src="{{ section.settings.image | image_url: width: 900 }}"
           alt="About us"
-          width="600"
-          height="800"
+          width="900"
+          height="1200"
         >
-      </div>
+      {% endif %}
     </div>
 
-    <!-- DIVIDER -->
+    <!-- Divider -->
     <div class="about-divider"></div>
 
-    <!-- RIGHT : TEXT -->
+    <!-- Text side -->
     <div class="about-text">
       <h2>About us</h2>
       <p>
-        We started with a simple belief — <strong>focus creates culture</strong>.
-        What began as late nights and obsessive attention to detail slowly evolved
-        into a brand built on <strong>discipline</strong>, <strong>craft</strong>,
-        and the idea of staying locked in when others drift away.
+        We started with a belief in <strong>discipline</strong>, <strong>focus</strong>,
+        and the power of <strong>showing up daily</strong>. What began as an idea
+        turned into a movement built on consistency, intent, and obsession with
+        craft. This is more than clothing — it’s a mindset.
       </p>
     </div>
 
@@ -36,90 +36,71 @@
   color: #fff;
   width: 100vw;
   margin-left: calc(50% - 50vw);
-  overflow: hidden;
+  padding: 0;
 }
 
-.about-inner {
+.about-grid {
   display: grid;
   grid-template-columns: 1fr 1px 1fr;
-  min-height: 90vh;
+  min-height: 80vh;
 }
 
-/* divider */
+/* Divider */
 .about-divider {
   background: rgba(255,255,255,0.15);
   width: 1px;
 }
 
-/* image side */
-.about-image {
+/* Image side */
+.about-image-wrap {
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.image-frame {
+.about-image-wrap img {
+  max-width: 70%;
   border: 10px solid #fff;
   transform: rotate(3.5deg);
-  max-width: 60%;
+  object-fit: cover;
 }
 
-.image-frame img {
-  display: block;
-  width: 100%;
-  height: auto;
-}
-
-/* text side */
+/* Text side */
 .about-text {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 8vw;
+  padding: 80px;
   font-family: Inter, Helvetica, Arial, sans-serif;
 }
 
 .about-text h2 {
-  font-size: clamp(2.5rem, 4vw, 4rem);
-  margin-bottom: 2rem;
+  font-size: 3rem;
+  margin-bottom: 24px;
   font-weight: 500;
 }
 
 .about-text p {
-  max-width: 520px;
-  font-size: 1rem;
-  line-height: 1.8;
-  opacity: 0.9;
+  max-width: 420px;
+  line-height: 1.6;
+  opacity: 0.85;
 }
 
 .about-text strong {
   font-weight: 600;
-}
-
-/* mobile */
-@media (max-width: 900px) {
-  .about-inner {
-    grid-template-columns: 1fr;
-  }
-
-  .about-divider {
-    display: none;
-  }
-
-  .image-frame {
-    transform: rotate(2deg);
-    max-width: 80%;
-  }
-
-  .about-text {
-    padding: 12vw 8vw;
-  }
 }
 </style>
 
 {% schema %}
 {
   "name": "About us",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "About image"
+    }
+  ],
   "presets": [
     {
       "name": "About us"
