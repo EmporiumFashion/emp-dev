@@ -1,27 +1,32 @@
+{% comment %}
+  About Us — Luxury / Streetwear
+{% endcomment %}
+
 <section class="about">
-  <div class="about-grid">
+  <div class="about-inner">
 
     <!-- IMAGE SIDE -->
-    <div class="about-image-wrap">
-      <div class="diagonal-marquee">
-        <div class="marquee-track">
-          {% for i in (1..20) %}
-            <span>LOCK&nbsp;IN&nbsp;•&nbsp;</span>
-          {% endfor %}
-        </div>
-      </div>
-
-      {% if section.settings.image %}
-        <div class="image-frame">
+    <div class="about-image">
+      <div class="image-frame">
+        {% if section.settings.image %}
           <img
             src="{{ section.settings.image | image_url: width: 900 }}"
             alt="About us image"
             width="900"
-            height="1100"
+            height="1200"
             loading="lazy"
           >
+        {% endif %}
+
+        <!-- diagonal marquee (IMAGE SIDE ONLY) -->
+        <div class="diagonal-marquee">
+          <div class="marquee-track">
+            {% for i in (1..30) %}
+              <span>LOCK&nbsp;IN.</span>
+            {% endfor %}
+          </div>
         </div>
-      {% endif %}
+      </div>
     </div>
 
     <!-- DIVIDER -->
@@ -31,14 +36,9 @@
     <div class="about-text">
       <h2>About us</h2>
       <p>
-        We started with nothing but vision —
-        <strong>late nights</strong>,
-        <strong>obsession</strong>,
-        and a refusal to follow the crowd.
-        Emporium was built to blur the line between
-        <strong>luxury</strong> and <strong>streetwear</strong>,
-        creating pieces that feel intentional, raw,
-        and earned.
+        We started with a single idea — <strong>focus</strong>, <strong>discipline</strong>,
+        and <strong>intent</strong>. What began as late nights and sketches became a
+        statement of identity. This is not fashion. This is commitment.
       </p>
     </div>
 
@@ -46,7 +46,7 @@
 </section>
 
 <style>
-/* ====== BASE ====== */
+/* ===== LAYOUT ===== */
 .about {
   background: #000;
   color: #fff;
@@ -55,118 +55,115 @@
   overflow: hidden;
 }
 
-.about-grid {
+.about-inner {
   display: grid;
   grid-template-columns: 1fr 1px 1fr;
   min-height: 100vh;
 }
 
-/* ====== DIVIDER ====== */
+/* ===== DIVIDER ===== */
 .about-divider {
-  background: rgba(255,255,255,0.15);
+  background: rgba(255,255,255,0.25);
 }
 
-/* ====== IMAGE SIDE ====== */
-.about-image-wrap {
+/* ===== IMAGE SIDE ===== */
+.about-image {
   position: relative;
   overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
-/* PHOTO FRAME */
 .image-frame {
+  position: absolute;
+  inset: 50%;
+  transform: translate(-50%, -50%) rotate(3.5deg);
   border: 10px solid #fff;
-  transform: rotate(3.5deg);
-  position: relative;
-  z-index: 2;
+  width: 65%;
+  max-width: 420px;
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
 }
 
 .image-frame img {
-  display: block;
-  max-width: 420px;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
   filter: grayscale(1);
+  transition: filter 0.3s ease;
 }
 
-/* NOISE OVERLAY */
+/* noise overlay */
 .image-frame::after {
   content: '';
   position: absolute;
   inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  opacity: 0.12;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: 0.06;
   pointer-events: none;
 }
 
-/* ====== DIAGONAL MARQUEE ====== */
+/* ===== DIAGONAL MARQUEE ===== */
 .diagonal-marquee {
   position: absolute;
-  inset: 0;
-  overflow: hidden;
+  inset: -40%;
+  transform: rotate(-25deg);
   pointer-events: none;
-}
-
-.marquee-track {
-  position: absolute;
-  top: 50%;
-  left: -100%;
-  white-space: nowrap;
-  transform: rotate(-18deg);
-  font-family: Inter, Helvetica, Arial, sans-serif;
-  font-weight: 600;
-  font-size: 4rem;
-  opacity: 0.85;
-  animation: marqueeMove 18s linear infinite;
   mix-blend-mode: difference;
 }
 
+.marquee-track {
+  display: flex;
+  gap: 60px;
+  animation: marquee 20s linear infinite;
+}
+
 .marquee-track span {
-  margin-right: 2rem;
+  font-family: Inter, Helvetica, Arial, sans-serif;
+  font-size: 4rem;
+  font-weight: 600;
+  white-space: nowrap;
 }
 
 /* marquee animation */
-@keyframes marqueeMove {
-  0% {
-    transform: translateX(0) rotate(-18deg);
-  }
-  100% {
-    transform: translateX(200%) rotate(-18deg);
-  }
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
 }
 
-/* COLOR REVEAL ONLY WHERE MARQUEE PASSES */
-.marquee-track {
-  -webkit-mask-image: linear-gradient(#fff, #fff);
+/* COLOR REVEAL WHERE MARQUEE PASSES */
+.diagonal-marquee {
+  mask-image: linear-gradient(#000 0 0);
 }
 
-.marquee-track {
-  backdrop-filter: invert(1) contrast(1.2);
+.diagonal-marquee:hover ~ img,
+.image-frame:hover img {
+  filter: grayscale(0);
 }
 
-/* ====== TEXT SIDE ====== */
+/* ===== TEXT SIDE ===== */
 .about-text {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 10vw;
-  font-family: Inter, Helvetica, Arial, sans-serif;
+  align-items: center;
+  padding: 8vw;
+  text-align: center;
 }
 
 .about-text h2 {
+  font-family: Inter, Helvetica, Arial, sans-serif;
   font-size: 3rem;
-  margin-bottom: 1.5rem;
+  margin-bottom: 24px;
 }
 
 .about-text p {
   max-width: 420px;
+  opacity: 0.8;
   line-height: 1.6;
-  opacity: 0.85;
 }
 
-/* ====== MOBILE ====== */
-@media (max-width: 900px) {
-  .about-grid {
+/* ===== MOBILE ===== */
+@media (max-width: 768px) {
+  .about-inner {
     grid-template-columns: 1fr;
   }
 
@@ -178,10 +175,11 @@
     display: none;
   }
 
-  .about-text {
-    padding: 12vw 8vw;
-    text-align: center;
-    align-items: center;
+  .image-frame {
+    position: relative;
+    inset: auto;
+    transform: rotate(2deg);
+    margin: 60px auto;
   }
 }
 </style>
