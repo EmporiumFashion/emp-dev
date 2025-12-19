@@ -1,83 +1,128 @@
-{% comment %}
-  This section is used in the list-collections template to render a list of
-  collections.
+<section class="collection-page">
+  <header class="collection-header">
+    <h1 class="collection-title">{{ collection.title }}</h1>
 
-  https://shopify.dev/docs/storefronts/themes/architecture/templates/collection
-{% endcomment %}
+    {% if collection.description != blank %}
+      <p class="collection-desc">{{ collection.description }}</p>
+    {% endif %}
+  </header>
 
-<h1>{{ 'collections.title' | t }}</h1>
+  <div class="collection-grid">
+    {% for product in collection.products %}
+      <a href="{{ product.url }}" class="product-card">
+        <div class="product-media">
+          {% if product.featured_image %}
+            <img
+              src="{{ product.featured_image | image_url: width: 800 }}"
+              alt="{{ product.title | escape }}"
+              loading="lazy"
+              width="400"
+              height="500"
+            >
+          {% endif %}
+        </div>
 
-<div
-  class="collections {{ section.settings.grid_item_width }}"
-  style="--grid-gap: {{ section.settings.grid_gap }}px"
->
-  {% for collection in collections %}
-    <a class="collection-card" href="{{ collection.url }}">
-      {% if collection.featured_image %}
-        {% render 'image',
-          class: 'collection-card__image',
-          image: collection.featured_image,
-          width: 600,
-          height: 600,
-          crop: 'center'
-        %}
-      {% endif %}
+        <div class="product-meta">
+          <h2 class="product-title">{{ product.title }}</h2>
+          <span class="product-price">
+            {{ product.price | money }}
+          </span>
+        </div>
+      </a>
+    {% endfor %}
+  </div>
+</section>
 
-      <div class="collection-card__content">
-        <p>{{ collection.title }}</p>
+<style>
+.collection-page {
+  background: #000;
+  color: #fff;
+  min-height: 100vh;
+  padding: 80px 5vw 120px;
+}
 
-        {% if collection.description %}
-          <p>{{ collection.description | strip_html | truncatewords: 15 }}</p>
-        {% endif %}
-      </div>
-    </a>
-  {% endfor %}
-</div>
+.collection-header {
+  text-align: center;
+  margin-bottom: 80px;
+}
 
-{% stylesheet %}
-  .collections {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(min(var(--collection-card-size), 100%), 1fr));
-    gap: var(--grid-gap);
+.collection-title {
+  font-size: clamp(3rem, 6vw, 6rem);
+  letter-spacing: 6px;
+  text-transform: uppercase;
+}
+
+.collection-desc {
+  max-width: 600px;
+  margin: 24px auto 0;
+  opacity: 0.7;
+}
+
+.collection-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 48px;
+}
+
+.product-card {
+  text-decoration: none;
+  color: inherit;
+}
+
+.product-media {
+  overflow: hidden;
+  background: #111;
+}
+
+.product-media img {
+  width: 100%;
+  height: auto;
+  display: block;
+  transition: transform 0.6s ease;
+}
+
+.product-card:hover img {
+  transform: scale(1.05);
+}
+
+.product-meta {
+  margin-top: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.product-title {
+  font-size: 0.9rem;
+  font-weight: 400;
+  letter-spacing: 1px;
+}
+
+.product-price {
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .collection-page {
+    padding: 60px 20px 100px;
   }
-  .collections--compact {
-    --collection-card-size: 160px;
+
+  .collection-title {
+    letter-spacing: 3px;
   }
-  .collections--full {
-    --collection-card-size: 280px;
-  }
-  .collection-card {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-  }
-{% endstylesheet %}
+}
+</style>
 
 {% schema %}
 {
-  "name": "t:general.collections_grid",
-  "settings": [
+  "name": "Main collection",
+  "settings": [],
+  "presets": [
     {
-      "type": "select",
-      "id": "grid_item_width",
-      "label": "t:labels.grid_item_width",
-      "options": [
-        { "value": "collections--compact", "label": "t:options.size.small" },
-        { "value": "collections--full", "label": "t:options.size.large" }
-      ],
-      "default": "collections--full"
-    },
-    {
-      "type": "range",
-      "id": "grid_gap",
-      "label": "t:labels.grid_gap",
-      "min": 0,
-      "max": 50,
-      "step": 5,
-      "unit": "px",
-      "default": 10
+      "name": "Collection"
     }
-  ],
-  "presets": [{ "name": "t:general.collections_grid" }]
+  ]
 }
 {% endschema %}
