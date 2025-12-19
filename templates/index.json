@@ -13,7 +13,7 @@
       "type": "hello-world",
       "settings": {
         "heading": "Welcome",
-        "tagline": "Click to enter the experience",
+        "tagline": "you should not edit this this is not visible",
         "button_label": "Enter"
       }
     },
@@ -30,11 +30,17 @@
       "settings": {
         "image": "shopify://shop_images/6572ee1397eb5b39d9f9e35a062d3917.jpg"
       }
+    },
+    "collections_EKazPt": {
+      "type": "collections",
+      "name": "Collection",
+      "settings": {}
     }
   },
   "order": [
     "main",
     "hero_EzUykP",
-    "about_us_gyfbem"
+    "about_us_gyfbem",
+    "collections_EKazPt"
   ]
 }
