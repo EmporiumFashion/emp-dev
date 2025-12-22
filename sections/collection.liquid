@@ -1,152 +1,170 @@
-{% layout none %}
+{% comment %}
+  Vintage Fullscreen Collection
+  - PRODUCTS marquee header
+  - Minimal product grid
+  - No purple links
+  - No whitespace
+{% endcomment %}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>{{ collection.title }}</title>
+<section class="collection-wrap">
 
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      background: #000;
-      color: #fff;
-      font-family: 'Inter', sans-serif;
-      overflow-x: hidden;
-    }
-
-    /* ===== FULL SCREEN WRAPPER ===== */
-    .collection-wrap {
-      min-height: 100vh;
-      width: 100vw;
-      margin-left: calc(50% - 50vw);
-      padding-bottom: 80px;
-    }
-
-    /* ===== MARQUEE TITLE ===== */
-    .title-marquee {
-      position: relative;
-      border-top: 1px solid rgba(255,255,255,0.3);
-      border-bottom: 1px solid rgba(255,255,255,0.3);
-      overflow: hidden;
-      padding: 24px 0;
-    }
-
-    .marquee-track {
-      display: flex;
-      width: max-content;
-      animation: marquee 30s linear infinite;
-    }
-
-    .marquee-track span {
-      font-size: clamp(3rem, 10vw, 7rem);
-      letter-spacing: 0.15em;
-      font-weight: 400;
-      padding-right: 80px;
-      white-space: nowrap;
-    }
-
-    @keyframes marquee {
-      from {
-        transform: translateX(0);
-      }
-      to {
-        transform: translateX(-50%);
-      }
-    }
-
-    /* ===== PRODUCTS GRID ===== */
-    .products {
-      max-width: 1400px;
-      margin: 80px auto 0;
-      padding: 0 24px;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 48px;
-    }
-
-    .product-card {
-      text-align: center;
-    }
-
-    .product-card img {
-      width: 100%;
-      height: auto;
-      border: 1px solid rgba(255,255,255,0.2);
-      margin-bottom: 16px;
-    }
-
-    .product-title {
-      font-size: 0.9rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      margin-bottom: 6px;
-    }
-
-    .product-price {
-      font-size: 0.85rem;
-      opacity: 0.7;
-    }
-
-    /* ===== EMPTY STATE ===== */
-    .empty {
-      text-align: center;
-      margin-top: 120px;
-      opacity: 0.6;
-    }
-
-    @media (max-width: 768px) {
-      .products {
-        gap: 36px;
-      }
-    }
-  </style>
-</head>
-
-<body>
-
-  <section class="collection-wrap">
-
-    <!-- MARQUEE TITLE -->
-    <div class="title-marquee">
-      <div class="marquee-track">
-        {% for i in (1..12) %}
-          <span>PRODUCTS</span>
-        {% endfor %}
-      </div>
+  <!-- PRODUCTS MARQUEE -->
+  <div class="products-marquee">
+    <div class="marquee-track">
+      {% for i in (1..10) %}
+        <span>PRODUCTS</span>
+      {% endfor %}
     </div>
+  </div>
 
-    <!-- PRODUCTS -->
-    {% if collection.products.size > 0 %}
-      <div class="products">
-        {% for product in collection.products %}
-          <a href="{{ product.url }}" class="product-card">
-            {% if product.featured_image %}
-              <img
-                src="{{ product.featured_image | image_url: width: 600 }}"
-                alt="{{ product.title }}"
-                loading="lazy"
-                width="600"
-                height="800"
-              >
-            {% endif %}
-            <div class="product-title">{{ product.title }}</div>
-            <div class="product-price">{{ product.price | money }}</div>
-          </a>
-        {% endfor %}
-      </div>
-    {% else %}
-      <div class="empty">No products found</div>
-    {% endif %}
+  <div class="divider"></div>
 
-  </section>
+  {% if collection.products.size > 0 %}
+    <div class="products-grid">
+      {% for product in collection.products %}
+        <a href="{{ product.url }}" class="product-card">
+          <div class="product-img">
+            <img
+              src="{{ product.featured_image | image_url: width: 600 }}"
+              alt="{{ product.title }}"
+              width="600"
+              height="750"
+              loading="lazy"
+            >
+          </div>
 
-</body>
-</html>
+          <div class="product-meta">
+            <span class="product-title">{{ product.title }}</span>
+            <span class="product-price">
+              {{ product.price | money }}
+            </span>
+          </div>
+        </a>
+
+        <div class="divider thin"></div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <p class="empty">No products found.</p>
+  {% endif %}
+
+</section>
+
+<style>
+/* RESET */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+/* WRAPPER */
+.collection-wrap {
+  min-height: 100vh;
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  background: #000;
+  color: #fff;
+  font-family: Inter, Helvetica, Arial, sans-serif;
+  overflow: hidden;
+}
+
+/* MARQUEE */
+.products-marquee {
+  overflow: hidden;
+  border-bottom: 1px solid rgba(255,255,255,0.25);
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 22s linear infinite;
+}
+
+.marquee-track span {
+  font-size: clamp(3rem, 8vw, 7rem);
+  letter-spacing: 0.15em;
+  font-weight: 300;
+  padding-right: 80px;
+  white-space: nowrap;
+  opacity: 0.9;
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* DIVIDER */
+.divider {
+  height: 1px;
+  background: rgba(255,255,255,0.25);
+  width: 100%;
+}
+
+.divider.thin {
+  opacity: 0.15;
+}
+
+/* GRID */
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  padding: 60px;
+  gap: 40px;
+}
+
+/* PRODUCT */
+.product-card {
+  text-decoration: none;
+  color: inherit;
+}
+
+.product-img {
+  overflow: hidden;
+}
+
+.product-img img {
+  width: 100%;
+  display: block;
+  filter: grayscale(1);
+  transition: transform 0.5s ease, filter 0.5s ease;
+}
+
+.product-card:hover img {
+  filter: grayscale(0);
+  transform: scale(1.05);
+}
+
+/* META */
+.product-meta {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 14px;
+  font-size: 0.85rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.85;
+}
+
+/* EMPTY */
+.empty {
+  text-align: center;
+  padding: 80px;
+  opacity: 0.6;
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+  .products-grid {
+    padding: 32px;
+    gap: 32px;
+  }
+
+  .marquee-track span {
+    padding-right: 40px;
+  }
+}
+</style>
