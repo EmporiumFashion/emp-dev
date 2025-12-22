@@ -1,47 +1,156 @@
 {% comment %}
-  This section is used in the collection template to render collection page
-  listing all products within a collection.
-
-  https://shopify.dev/docs/storefronts/themes/architecture/templates/collection
+  Vintage / Luxury Collection Template
+  Works with Qikink POD & manual collections
 {% endcomment %}
 
-<h1>{{ collection.title }}</h1>
+<section class="collection-page">
+  <header class="collection-header">
+    <h1 class="collection-title">{{ collection.title }}</h1>
 
-<div class="collection-products">
-  {% paginate collection.products by 20 %}
-    {% for product in collection.products %}
-      <div class="collection-product">
-        {% if product.featured_image %}
-          {% render 'image',
-            class: 'collection-product__image',
-            image: product.featured_image,
-            url: product.url,
-            width: 400,
-            height: 400,
-            crop: 'center'
-          %}
-        {% endif %}
-        <div class="collection-product__content">
-          <p>{{ product.title | escape | link_to: product.url }}</p>
-          <p>{{ product.price | money }}</p>
-        </div>
-      </div>
-    {% endfor %}
+    {% if collection.description != blank %}
+      <p class="collection-description">
+        {{ collection.description }}
+      </p>
+    {% endif %}
+  </header>
 
-    {{ paginate | default_pagination }}
-  {% endpaginate %}
-</div>
+  {% if collection.products_count > 0 %}
+    <div class="collection-grid">
+      {% for product in collection.products %}
+        <a href="{{ product.url }}" class="product-card">
+          <div class="product-image-wrap">
+            {% if product.featured_image %}
+              <img
+                src="{{ product.featured_image | image_url: width: 600 }}"
+                alt="{{ product.title | escape }}"
+                loading="lazy"
+                width="600"
+                height="750"
+              >
+            {% endif %}
+          </div>
 
-{% stylesheet %}
-  .collection-products {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
-  }
-{% endstylesheet %}
+          <div class="product-info">
+            <h2 class="product-title">{{ product.title }}</h2>
+            <span class="product-price">
+              {{ product.price | money }}
+            </span>
+          </div>
+        </a>
+      {% endfor %}
+    </div>
+  {% else %}
+    <div class="empty-collection">
+      <p>No products found.</p>
+    </div>
+  {% endif %}
+</section>
 
-{% schema %}
-{
-  "name": "t:general.collection",
-  "settings": []
+<style>
+/* ===== COLLECTION PAGE ===== */
+
+.collection-page {
+  background: #000;
+  color: #f5f5f2;
+  min-height: 100vh;
+  padding: 80px 6vw 120px;
+  font-family: Inter, Helvetica, Arial, sans-serif;
 }
-{% endschema %}
+
+/* header */
+.collection-header {
+  text-align: center;
+  margin-bottom: 80px;
+}
+
+.collection-title {
+  font-family: 'Times New Roman', serif;
+  font-size: clamp(3rem, 6vw, 6rem);
+  font-weight: 400;
+  letter-spacing: 2px;
+  text-transform: lowercase;
+}
+
+.collection-description {
+  max-width: 520px;
+  margin: 24px auto 0;
+  opacity: 0.7;
+  line-height: 1.6;
+}
+
+/* grid */
+.collection-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 48px;
+}
+
+/* product card */
+.product-card {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.product-image-wrap {
+  border: 1px solid rgba(255,255,255,0.25);
+  padding: 10px;
+  background: #000;
+  transition: transform 0.4s ease;
+}
+
+.product-image-wrap img {
+  width: 100%;
+  height: auto;
+  display: block;
+  filter: grayscale(1) contrast(1.05);
+  transition: filter 0.4s ease;
+}
+
+/* hover */
+.product-card:hover .product-image-wrap {
+  transform: translateY(-6px);
+}
+
+.product-card:hover img {
+  filter: grayscale(0) contrast(1);
+}
+
+/* info */
+.product-info {
+  margin-top: 16px;
+  text-align: center;
+}
+
+.product-title {
+  font-size: 0.95rem;
+  font-weight: 400;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.product-price {
+  display: block;
+  margin-top: 6px;
+  opacity: 0.7;
+  font-size: 0.9rem;
+}
+
+/* empty */
+.empty-collection {
+  text-align: center;
+  opacity: 0.6;
+  margin-top: 120px;
+}
+
+/* mobile */
+@media (max-width: 768px) {
+  .collection-page {
+    padding: 60px 20px 100px;
+  }
+
+  .collection-grid {
+    gap: 32px;
+  }
+}
+</style>
