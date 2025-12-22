@@ -1,57 +1,58 @@
 {% comment %}
-  Vintage Fullscreen Collection
-  - PRODUCTS marquee header
-  - Minimal product grid
-  - No purple links
+  Vintage Collection Page
+  - Full screen
   - No whitespace
+  - Grid aligned products
+  - Uniform images
+  - Minimal typography
+  - Smooth marquee title
 {% endcomment %}
 
-<section class="collection-wrap">
+<section class="collection">
 
-  <!-- PRODUCTS MARQUEE -->
-  <div class="products-marquee">
+  <!-- MARQUEE TITLE -->
+  <div class="collection-marquee">
     <div class="marquee-track">
-      {% for i in (1..10) %}
-        <span>PRODUCTS</span>
+      {% for i in (1..12) %}
+        <span>Products</span>
       {% endfor %}
     </div>
   </div>
 
   <div class="divider"></div>
 
-  {% if collection.products.size > 0 %}
-    <div class="products-grid">
+  {% if collection.products_count == 0 %}
+    <p class="empty">No products found</p>
+  {% else %}
+    <div class="product-grid">
       {% for product in collection.products %}
         <a href="{{ product.url }}" class="product-card">
-          <div class="product-img">
+
+          <div class="product-image">
             <img
               src="{{ product.featured_image | image_url: width: 600 }}"
               alt="{{ product.title }}"
               width="600"
-              height="750"
+              height="600"
               loading="lazy"
             >
           </div>
 
-          <div class="product-meta">
-            <span class="product-title">{{ product.title }}</span>
-            <span class="product-price">
-              {{ product.price | money }}
-            </span>
+          <div class="product-info">
+            <h3>{{ product.title }}</h3>
+            <span>{{ product.price | money }}</span>
           </div>
-        </a>
 
-        <div class="divider thin"></div>
+        </a>
       {% endfor %}
     </div>
-  {% else %}
-    <p class="empty">No products found.</p>
   {% endif %}
 
 </section>
 
 <style>
-/* RESET */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400&display=swap');
+
 * {
   box-sizing: border-box;
 }
@@ -60,36 +61,38 @@ body {
   margin: 0;
 }
 
-/* WRAPPER */
-.collection-wrap {
-  min-height: 100vh;
+/* SECTION */
+.collection {
   width: 100vw;
+  min-height: 100vh;
   margin-left: calc(50% - 50vw);
   background: #000;
-  color: #fff;
-  font-family: Inter, Helvetica, Arial, sans-serif;
+  color: #f5f5f2;
+  font-family: 'Inter', sans-serif;
   overflow: hidden;
 }
 
 /* MARQUEE */
-.products-marquee {
+.collection-marquee {
+  width: 100%;
   overflow: hidden;
-  border-bottom: 1px solid rgba(255,255,255,0.25);
+  border-top: 1px solid rgba(255,255,255,0.2);
+  border-bottom: 1px solid rgba(255,255,255,0.2);
 }
 
 .marquee-track {
   display: flex;
-  width: max-content;
-  animation: marquee 22s linear infinite;
+  gap: 60px;
+  padding: 24px 0;
+  animation: marquee 18s linear infinite;
+  white-space: nowrap;
 }
 
 .marquee-track span {
-  font-size: clamp(3rem, 8vw, 7rem);
-  letter-spacing: 0.15em;
-  font-weight: 300;
-  padding-right: 80px;
-  white-space: nowrap;
-  opacity: 0.9;
+  font-size: clamp(2.5rem, 6vw, 5rem);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  opacity: 0.8;
 }
 
 @keyframes marquee {
@@ -99,72 +102,83 @@ body {
 
 /* DIVIDER */
 .divider {
-  height: 1px;
-  background: rgba(255,255,255,0.25);
   width: 100%;
-}
-
-.divider.thin {
-  opacity: 0.15;
+  height: 1px;
+  background: rgba(255,255,255,0.15);
 }
 
 /* GRID */
-.products-grid {
+.product-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  padding: 60px;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
   gap: 40px;
+  padding: 60px;
 }
 
-/* PRODUCT */
+/* CARD */
 .product-card {
   text-decoration: none;
   color: inherit;
 }
 
-.product-img {
+/* IMAGE */
+.product-image {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border: 1px solid rgba(255,255,255,0.25);
   overflow: hidden;
+  background: #000;
 }
 
-.product-img img {
+.product-image img {
   width: 100%;
-  display: block;
-  filter: grayscale(1);
-  transition: transform 0.5s ease, filter 0.5s ease;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(1) contrast(1.1);
+  transition: filter 0.4s ease, transform 0.4s ease;
 }
 
 .product-card:hover img {
   filter: grayscale(0);
-  transform: scale(1.05);
+  transform: scale(1.04);
 }
 
-/* META */
-.product-meta {
+/* INFO */
+.product-info {
+  margin-top: 12px;
   display: flex;
   justify-content: space-between;
-  margin-top: 14px;
-  font-size: 0.85rem;
-  letter-spacing: 0.12em;
+  align-items: baseline;
+}
+
+.product-info h3 {
+  font-size: 0.95rem;
+  font-weight: 400;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  opacity: 0.85;
+}
+
+.product-info span {
+  font-size: 0.9rem;
+  opacity: 0.7;
 }
 
 /* EMPTY */
 .empty {
-  text-align: center;
   padding: 80px;
+  text-align: center;
   opacity: 0.6;
 }
 
 /* MOBILE */
 @media (max-width: 768px) {
-  .products-grid {
+  .product-grid {
     padding: 32px;
-    gap: 32px;
+    gap: 28px;
   }
 
   .marquee-track span {
-    padding-right: 40px;
+    font-size: 2.2rem;
   }
 }
 </style>
