@@ -1,105 +1,122 @@
 {% comment %}
-  Vintage / Luxury Collection Template
-  Works with Qikink POD & manual collections
+  Vintage marquee-style collection
+  - Infinite scrolling products
+  - Inter font
+  - Thin divider lines
+  - Works with any collection (including Home Page)
 {% endcomment %}
 
-<section class="collection-page">
-  <header class="collection-header">
-    <h1 class="collection-title">{{ collection.title }}</h1>
-
-    {% if collection.description != blank %}
-      <p class="collection-description">
-        {{ collection.description }}
-      </p>
-    {% endif %}
-  </header>
+<section class="collection">
+  <div class="collection-header">
+    <h1 class="collection-title">
+      {{ collection.title }}
+    </h1>
+  </div>
 
   {% if collection.products_count > 0 %}
-    <div class="collection-grid">
-      {% for product in collection.products %}
-        <a href="{{ product.url }}" class="product-card">
-          <div class="product-image-wrap">
-            {% if product.featured_image %}
+    <div class="product-marquee">
+      <div class="marquee-track">
+        {% for product in collection.products %}
+          <div class="product-item">
+            <a href="{{ product.url }}">
               <img
                 src="{{ product.featured_image | image_url: width: 600 }}"
-                alt="{{ product.title | escape }}"
-                loading="lazy"
+                alt="{{ product.title }}"
                 width="600"
-                height="750"
+                height="800"
+                loading="lazy"
               >
-            {% endif %}
+              <div class="product-meta">
+                <span class="product-title">{{ product.title }}</span>
+                <span class="divider"></span>
+                <span class="product-price">{{ product.price | money }}</span>
+              </div>
+            </a>
           </div>
+        {% endfor %}
 
-          <div class="product-info">
-            <h2 class="product-title">{{ product.title }}</h2>
-            <span class="product-price">
-              {{ product.price | money }}
-            </span>
+        {%- comment -%} duplicate for seamless loop {%- endcomment -%}
+        {% for product in collection.products %}
+          <div class="product-item">
+            <a href="{{ product.url }}">
+              <img
+                src="{{ product.featured_image | image_url: width: 600 }}"
+                alt="{{ product.title }}"
+                width="600"
+                height="800"
+                loading="lazy"
+              >
+              <div class="product-meta">
+                <span class="product-title">{{ product.title }}</span>
+                <span class="divider"></span>
+                <span class="product-price">{{ product.price | money }}</span>
+              </div>
+            </a>
           </div>
-        </a>
-      {% endfor %}
+        {% endfor %}
+      </div>
     </div>
   {% else %}
-    <div class="empty-collection">
-      <p>No products found.</p>
-    </div>
+    <p class="no-products">No products found.</p>
   {% endif %}
 </section>
 
 <style>
-/* ===== COLLECTION PAGE ===== */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap');
 
-.collection-page {
+.collection {
   background: #000;
   color: #f5f5f2;
   min-height: 100vh;
-  padding: 80px 6vw 120px;
-  font-family: Inter, Helvetica, Arial, sans-serif;
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  overflow: hidden;
+  font-family: 'Inter', sans-serif;
 }
 
-/* header */
 .collection-header {
+  padding: 48px 24px 24px;
   text-align: center;
-  margin-bottom: 80px;
+  border-bottom: 1px solid rgba(255,255,255,0.15);
 }
 
 .collection-title {
-  font-family: 'Times New Roman', serif;
-  font-size: clamp(3rem, 6vw, 6rem);
+  font-size: clamp(2.2rem, 6vw, 4rem);
   font-weight: 400;
   letter-spacing: 2px;
-  text-transform: lowercase;
+  text-transform: uppercase;
 }
 
-.collection-description {
-  max-width: 520px;
-  margin: 24px auto 0;
-  opacity: 0.7;
-  line-height: 1.6;
+/* marquee */
+.product-marquee {
+  position: relative;
+  overflow: hidden;
+  padding: 40px 0;
 }
 
-/* grid */
-.collection-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 48px;
+.marquee-track {
+  display: flex;
+  gap: 80px;
+  animation: scroll 35s linear infinite;
+  width: max-content;
 }
 
-/* product card */
-.product-card {
+@keyframes scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+.product-item {
+  flex: 0 0 auto;
+  width: 260px;
+}
+
+.product-item a {
   text-decoration: none;
   color: inherit;
-  display: block;
 }
 
-.product-image-wrap {
-  border: 1px solid rgba(255,255,255,0.25);
-  padding: 10px;
-  background: #000;
-  transition: transform 0.4s ease;
-}
-
-.product-image-wrap img {
+.product-item img {
   width: 100%;
   height: auto;
   display: block;
@@ -107,50 +124,50 @@
   transition: filter 0.4s ease;
 }
 
-/* hover */
-.product-card:hover .product-image-wrap {
-  transform: translateY(-6px);
+.product-item:hover img {
+  filter: grayscale(0);
 }
 
-.product-card:hover img {
-  filter: grayscale(0) contrast(1);
-}
-
-/* info */
-.product-info {
-  margin-top: 16px;
-  text-align: center;
+.product-meta {
+  margin-top: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .product-title {
   font-size: 0.95rem;
   font-weight: 400;
-  letter-spacing: 1px;
-  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.divider {
+  height: 1px;
+  width: 100%;
+  background: rgba(255,255,255,0.2);
 }
 
 .product-price {
-  display: block;
-  margin-top: 6px;
+  font-size: 0.85rem;
   opacity: 0.7;
-  font-size: 0.9rem;
 }
 
-/* empty */
-.empty-collection {
+/* no products */
+.no-products {
+  padding: 80px;
   text-align: center;
   opacity: 0.6;
-  margin-top: 120px;
 }
 
 /* mobile */
 @media (max-width: 768px) {
-  .collection-page {
-    padding: 60px 20px 100px;
+  .marquee-track {
+    gap: 40px;
+    animation-duration: 45s;
   }
 
-  .collection-grid {
-    gap: 32px;
+  .product-item {
+    width: 200px;
   }
 }
 </style>
