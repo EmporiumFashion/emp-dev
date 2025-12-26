@@ -9,6 +9,11 @@
  */
 {
   "sections": {
+    "collections_EKazPt": {
+      "type": "collections",
+      "name": "Collection",
+      "settings": {}
+    },
     "main": {
       "type": "hello-world",
       "settings": {
@@ -30,17 +35,12 @@
       "settings": {
         "image": "shopify://shop_images/6572ee1397eb5b39d9f9e35a062d3917.jpg"
       }
-    },
-    "collections_EKazPt": {
-      "type": "collections",
-      "name": "Collection",
-      "settings": {}
     }
   },
   "order": [
     "main",
     "hero_EzUykP",
-    "about_us_gyfbem",
-    "collections_EKazPt"
+    "collections_EKazPt",
+    "about_us_gyfbem"
   ]
 }
