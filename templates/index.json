@@ -26,21 +26,22 @@
     },
     "collections_EKazPt": {
       "type": "collections",
+      "disabled": true,
       "name": "Collection",
       "settings": {}
-    },
-    "about_us_gyfbem": {
-      "type": "about-us",
-      "name": "About us",
-      "settings": {
-        "image": "shopify://shop_images/6572ee1397eb5b39d9f9e35a062d3917.jpg"
-      }
     },
     "homepage_colllections_xw3mUx": {
       "type": "homepage-colllections",
       "name": "Home Collection (I fucking hate my life)",
       "settings": {
         "collection": ""
+      }
+    },
+    "about_us_gyfbem": {
+      "type": "about-us",
+      "name": "About us",
+      "settings": {
+        "image": "shopify://shop_images/6572ee1397eb5b39d9f9e35a062d3917.jpg"
       }
     }
   },
