@@ -1,6 +1,18 @@
+{% assign home_collection = section.settings.collection %}
+
+{% if home_collection != blank %}
+  {% for product in home_collection.products %}
+    <!-- your product card code -->
+  {% endfor %}
+{% else %}
+  <p style="opacity:.5; text-align:center;">No collection selected</p>
+{% endif %}
+
 {% comment %}
-  Vintage Fullscreen Collection
+ whatever the fuck this is.
 {% endcomment %}
+
+
 
 <section class="collection-wrap">
 
