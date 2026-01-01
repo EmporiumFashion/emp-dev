@@ -30,13 +30,6 @@
       "name": "Collection",
       "settings": {}
     },
-    "homepage_colllections_xw3mUx": {
-      "type": "homepage-colllections",
-      "name": "Home Collection (I fucking hate my life)",
-      "settings": {
-        "collection": "frontpage"
-      }
-    },
     "about_us_gyfbem": {
       "type": "about-us",
       "name": "About us",
@@ -56,8 +49,7 @@
     "main",
     "hero_EzUykP",
     "collections_EKazPt",
-    "homepage_colllections_xw3mUx",
-    "about_us_gyfbem",
-    "homepage_products_ePDH83"
+    "homepage_products_ePDH83",
+    "about_us_gyfbem"
   ]
 }
