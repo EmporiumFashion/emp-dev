@@ -43,6 +43,13 @@
       "settings": {
         "image": "shopify://shop_images/6572ee1397eb5b39d9f9e35a062d3917.jpg"
       }
+    },
+    "homepage_colllections_7q3JJY": {
+      "type": "homepage-colllections",
+      "name": "Homepage Products",
+      "settings": {
+        "collection": "frontpage"
+      }
     }
   },
   "order": [
@@ -50,6 +57,7 @@
     "hero_EzUykP",
     "collections_EKazPt",
     "homepage_colllections_xw3mUx",
-    "about_us_gyfbem"
+    "about_us_gyfbem",
+    "homepage_colllections_7q3JJY"
   ]
 }
