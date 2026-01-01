@@ -1,112 +1,64 @@
-{% assign home_collection = section.settings.collection %}
-
-{% if home_collection != blank %}
-  {% for product in home_collection.products %}
-    <!-- your product card code -->
-  {% endfor %}
-{% else %}
-  <p style="opacity:.5; text-align:center;">No collection selected</p>
-{% endif %}
-
 {% comment %}
- whatever the fuck this is.
+  Homepage Products Section
 {% endcomment %}
 
+<section class="homepage-products">
 
+  {% if section.settings.collection != blank %}
+    <div class="products-grid">
+      {% for product in section.settings.collection.products %}
+        <div class="product-card">
 
-<section class="collection-wrap">
-
-  <!-- MARQUEE TITLE -->
-
-
-  <!-- PRODUCTS GRID -->
-  <div class="products-grid">
-    {% for product in collection.products %}
-      <div class="product-card">
-        <div class="product-image">
-          <img
-            src="{{ product.featured_image | image_url: width: 900 }}"
-            alt="{{ product.title }}"
-            loading="lazy"
-            width="450"
-            height="600"
-          >
-        </div>
-
-        <div class="product-meta">
-          <div class="product-title">{{ product.title }}</div>
-          <div class="product-price">
-            {{ product.price | money }}
+          <div class="product-image">
+            <img
+              src="{{ product.featured_image | image_url: width: 900 }}"
+              alt="{{ product.title }}"
+              loading="lazy"
+              width="450"
+              height="600"
+            >
           </div>
+
+          <div class="product-meta">
+            <span class="product-title">{{ product.title }}</span>
+            <span class="product-price">{{ product.price | money }}</span>
+          </div>
+
         </div>
-      </div>
-    {% endfor %}
-  </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <p class="no-products">Select a collection in the section settings.</p>
+  {% endif %}
 
 </section>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
 
-/* RESET */
-.collection-wrap {
-  min-height: 100vh;
+/* WRAPPER */
+.homepage-products {
   background: #000;
   color: #fff;
   width: 100vw;
   margin-left: calc(50% - 50vw);
-  overflow: hidden;
+  padding: 80px 60px;
   font-family: 'Inter', Helvetica, Arial, sans-serif;
-}
-
-/* MARQUEE */
-.collection-marquee {
-  border-top: 1px solid rgba(255,255,255,0.2);
-  border-bottom: 1px solid rgba(255,255,255,0.2);
-  overflow: hidden;
-  white-space: nowrap;
-}
-
-.marquee-track {
-  display: inline-flex;
-  align-items: center;
-  gap: 40px;
-  padding: 18px 0;
-  animation: marquee 25s linear infinite;
-}
-
-.marquee-track span {
-  font-size: clamp(2rem, 6vw, 4.5rem);
-  font-weight: 500; /* thicker */
-  letter-spacing: 0.32em; /* slightly tighter to match weight */
-  text-transform: uppercase;
-  opacity: 0.9;
-}
-
-
-.marquee-e {
-  font-family: 'UnifrakturMaguntia', serif;
-  letter-spacing: 0;
-  font-size: 1.2em;
-  opacity: 1;
-}
-
-@keyframes marquee {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
 }
 
 /* GRID */
 .products-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 40px;
-  padding: 80px 60px;
+  gap: 48px;
 }
 
 @media (max-width: 768px) {
-  .products-grid {
+  .homepage-products {
     padding: 60px 24px;
+  }
+
+  .products-grid {
     gap: 28px;
   }
 }
@@ -118,7 +70,7 @@
   gap: 14px;
 }
 
-/* FORCE RECTANGLE */
+/* IMAGE */
 .product-image {
   width: 100%;
   aspect-ratio: 3 / 4;
@@ -156,22 +108,28 @@
 .product-price {
   opacity: 0.6;
 }
-</style>
 
+/* FALLBACK */
+.no-products {
+  text-align: center;
+  opacity: 0.6;
+  letter-spacing: 0.1em;
+}
+</style>
 
 {% schema %}
 {
-  "name": "Home Collection",
+  "name": "Homepage Products",
   "settings": [
     {
       "type": "collection",
       "id": "collection",
-      "label": "Choose collection"
+      "label": "Select collection"
     }
   ],
   "presets": [
     {
-      "name": "Home Collection (I fucking hate my life)"
+      "name": "Homepage Products"
     }
   ]
 }
