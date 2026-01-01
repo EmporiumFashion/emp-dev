@@ -44,9 +44,9 @@
         "image": "shopify://shop_images/6572ee1397eb5b39d9f9e35a062d3917.jpg"
       }
     },
-    "homepage_colllections_7q3JJY": {
-      "type": "homepage-colllections",
-      "name": "Homepage Products",
+    "homepage_products_ePDH83": {
+      "type": "homepage-products",
+      "name": "Homepage products",
       "settings": {
         "collection": "frontpage"
       }
@@ -58,6 +58,6 @@
     "collections_EKazPt",
     "homepage_colllections_xw3mUx",
     "about_us_gyfbem",
-    "homepage_colllections_7q3JJY"
+    "homepage_products_ePDH83"
   ]
 }
